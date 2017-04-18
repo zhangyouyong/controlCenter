@@ -19,7 +19,10 @@ public class UserPermissionServcieImpl implements UserPermissionServcie {
 	BaseUserDao baseUserDao;
 	@Override
 	public Long insertSubUser(BaseUser user) throws BHException {
-		// TODO Auto-generated method stub
+		String loginName=user.getLoginName();
+		if(baseUserDao.checkSubUserName(loginName)){
+			throw new BHException("登录用户名已经存在！",BHExceptionType.EXIST_USER);
+		}
 		if(user.getUserParent()==null){
 			throw new BHException("父用户id不能为空!", BHExceptionType.COMMIT_NULL);
 		}

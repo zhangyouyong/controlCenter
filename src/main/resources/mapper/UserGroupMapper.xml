@@ -23,7 +23,7 @@
 		WHERE
 			ug.cread_by = #{userId}
 			<if test="groupName!=null and groupName!=''">
-				and ug.`name`=#{groupName}
+				and ug.`name`=like CONCAT('%', #{groupName},'%')
 			</if>
 	</sql>
 	<select id="userGroupInfoByPage" resultType="map" parameterType="map">

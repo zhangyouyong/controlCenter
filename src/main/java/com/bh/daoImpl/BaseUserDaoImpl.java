@@ -81,18 +81,22 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 	@Override
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> userInfoById(Integer userId) {
-		// TODO Auto-generated method stub
 		Map<String,Object> result=(Map<String,Object>)getSqlSession().selectOne("User.userInfoById", userId);
 		return result;
 	}
 
 	@Override
 	public void removeSubUser(Long parentUserId, Long subUserId) {
-		// TODO Auto-generated method stub
 		Map<String,Object> parameters=new HashMap<String, Object>();
 		parameters.put("parentUserId", parentUserId);
 		parameters.put("subUserId", subUserId);
 		getSqlSession().delete("User.removeSubUser", parameters);
+	}
+
+	@Override
+	public boolean checkSubUserName(String loginName) {
+		Integer count=(Integer)getSqlSession().selectOne("User.checkSubUserName", loginName);
+		return count>0?true:false;
 	}
 
 

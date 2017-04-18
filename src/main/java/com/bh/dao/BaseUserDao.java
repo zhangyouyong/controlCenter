@@ -26,4 +26,6 @@ public interface BaseUserDao{
 	Map<String,Object> userInfoById(Integer userId);//根据用户id获取用户信息
 	
 	void removeSubUser(Long parentUserId,Long subUserId);//删除子用户
+	
+	boolean checkSubUserName(String loginName);//判断用户名是否已存在
 }

@@ -68,7 +68,7 @@ public class UserPermissionController {
 				Page<UserGroup> pageResult = new Page<UserGroup>();
 				pageResult.setPageNo(page);
 				pageResult.setPageSize(rows);
-				map.put("data",userGroupService.groupInfo(loginId,groupName,pageResult));
+				map.put("data",userGroupService.groupInfo(loginId,groupName,pageResult)); 
 			}
 		};
 		return template.operate();

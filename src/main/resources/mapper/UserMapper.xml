@@ -50,4 +50,8 @@
 	<delete id="removeSubUser" parameterType="map">
 		delete from base_user  where userid=#{parentUserId} and user_parent=#{subUserId}
 	</delete>
+	<!-- 判断用户名是否存在 -->
+	<select id="checkSubUserName" parameterType="String" resultType="integer">
+		select count(1) from base_user bu where bu.login_name=#{_longName}
+	</select>
 </mapper>
