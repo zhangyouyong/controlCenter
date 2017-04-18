@@ -89,7 +89,10 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 	@Override
 	public void removeSubUser(Long parentUserId, Long subUserId) {
 		// TODO Auto-generated method stub
-		
+		Map<String,Object> parameters=new HashMap<String, Object>();
+		parameters.put("parentUserId", parentUserId);
+		parameters.put("subUserId", subUserId);
+		getSqlSession().delete("User.removeSubUser", parameters);
 	}
 
 
