@@ -175,7 +175,7 @@ public class UserPermissionController {
 			protected void doSomething() throws Exception {
 				map.put("data",userGroupRelationService.userGroupRelationInfo(loginUserId, userGroupId));
 			}
-			
+			 
 		};
 		return template.operate();
 	}
