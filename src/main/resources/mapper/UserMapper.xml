@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+	<select id="userLogin" parameterType="java.util.Map"  resultType="com.bh.model.BaseUserModel">
+		select bu.userid userId,bu.login_name loginName,bu.status  from base_user bu where bu.login_name=#{loginName} and bu.password=#{password}
+	</select>
+	<select id="checkUserName" parameterType="java.lang.String"  resultType="java.lang.Integer">
+		select count(1)  from base_user bu where bu.login_name=#{_name}
+	</select>
+	<update id="resetPassword" parameterType="com.bh.model.BaseUserModel">
+		update base_user bu set bu.`password`= #{passWord} where bu.login_name=#{loginName}
+	</update>
+	<select id="userInfoById" parameterType="Integer" resultType="Map">
+		SELECT
+			bu.userid AS userId,
+			bu.login_name AS userName,
+			bu.email AS email,
+			bu.`name`,
+			bu.phone,
+			bu.age,
+			bu.photo
+		FROM
+			base_user bu
+		WHERE
+			bu.userid =#{userId}
+			and bu.`status`=1
+	</select>
+	<sql id="querySubUserByPageBody">
+		SELECT
+			bu.userid userId,
+			bu.login_name loginName,
+			bu.user_describe userDescribe,
+			DATE_FORMAT(bu.create_date, '%Y-%m-%d') createTime,
+			bu.phone,
+			bu.email
+		FROM
+			base_user bu
+			where bu.user_parent=#{parentId}
+		<if test="loginName!=null and loginName!=''">
+			and bu.login_name like CONCAT('%', #{loginName},'%')
+		</if>
+	</sql>
+	<select id="querySubUserByPage" parameterType="map" resultType="map">
+		<include refid="querySubUserByPageBody"></include> limit #{startRow},#{endRow}
+	</select>
+	<select id="querySubUserByPage.count" parameterType="map" resultType="java.lang.Integer">
+		 select count(1) from ( (<include refid="querySubUserByPageBody"></include>) as A)  
+	</select>
+	<delete id=""></delete>
+</mapper>

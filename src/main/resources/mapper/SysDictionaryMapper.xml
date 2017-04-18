@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dictionary">
+	<resultMap type="com.bh.model.SysDictionaryModel" id="dictionaryMap">
+		<id property="dictid" column="dictid"/>
+		<result property="code" column="code"/>
+		<result property="name" column="name"/>
+		<result property="value" column="value"/>
+		<result property="modular" column="modular"/>
+		<collection property="childNode" column="dictid" 
+		ofType="com.bh.model.SysDictionaryModel" select="dictionaryInfoByParentId"></collection>
+	</resultMap>
+	<select id="dictionaryInfo" resultMap="dictionaryMap" parameterType="String">
+		SELECT
+			sd.dictid,
+			sd.`code`,
+			sd.modular,
+			sd.`name`,
+			sd.`value`
+		FROM
+			sys_dictionary sd
+		WHERE
+			sd.parent_id = 0
+		and
+			sd.`code`=#{_code}
+	</select>
+	<select id="dictionaryInfoByParentId" parameterType="String" resultMap="dictionaryMap">
+		SELECT
+			sd.dictid,
+			sd.`code`,
+			sd.modular,
+			sd.`name`,
+			sd.`value`
+		FROM
+			sys_dictionary sd
+		WHERE
+			sd.parent_id = #{dictid}
+	</select>
+</mapper>

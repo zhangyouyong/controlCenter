@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userGroupRelation">
+	<delete id="userGroupRemove" parameterType="com.bh.model.UserGropRelationModel">
+		delete from user_group_relation where user_id in
+		<foreach collection="userIds" item="userId" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+		and group_id=#{groupId}
+	</delete>
+	<insert id="insertUserGroup" parameterType="com.bh.model.UserGropRelationModel">
+		insert into user_group_relation(user_id,group_id) values 
+		<foreach collection="userIds" item="userId"  separator="," >
+			(#{userId},#{groupId})
+		</foreach>
+	</insert>
+	<select id="groupSelectUser" parameterType="java.lang.Long" resultType="map">
+		SELECT
+			bu.login_name userName,
+			bu.userid subUserId
+		FROM
+			user_group_relation ugr,
+			base_user bu,
+			user_group ug
+		WHERE
+			ugr.group_id = ug.id
+		AND ugr.user_id = bu.userid
+		AND bu.`status` = 1 
+		AND ug.id=#{userGroupId}
+	</select>
+	
+	<select id="groupNoSelectUser" parameterType="map" resultType="map">
+		SELECT
+			bu.userid,bu.`name`,bu.login_name userName from base_user bu where bu.user_parent=#{loginUserId}
+		and  NOT EXISTS (
+			SELECT
+				1
+			FROM
+				user_group_relation ugr
+			WHERE
+				bu.userid = ugr.user_id
+			AND group_id=#{userGroupId}
+		)
+	</select>
+</mapper>

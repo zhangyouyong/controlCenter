@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserGroup">
+	<select id="userGroupInfoByCreadBy" resultType="map" parameterType="map">
+		SELECT
+			ug.id userGroupId,
+			ug.`name`,
+			ug.group_describe AS groupDescribe,
+				DATE_FORMAT(ug.cread_time,'%Y-%m-%d') creadTime
+		FROM
+			user_group ug
+		WHERE
+			ug.cread_by = #{userId}
+	</select>
+	<sql id="userGroupInfoByPageBody">
+		SELECT
+			ug.id userGroupId,
+			ug.`name`,
+			ug.group_describe AS groupDescribe,
+				DATE_FORMAT(ug.cread_time,'%Y-%m-%d') creadTime
+		FROM
+			user_group ug
+		WHERE
+			ug.cread_by = #{userId}
+			<if test="groupName!=null and groupName!=''">
+				and ug.`name`=#{groupName}
+			</if>
+	</sql>
+	<select id="userGroupInfoByPage" resultType="map" parameterType="map">
+		<include refid="userGroupInfoByPageBody"></include> limit #{startRow},#{endRow}
+	</select>
+	<select id="userGroupInfoByPage.count" parameterType="map" resultType="java.lang.Integer">
+		 select count(1) from ( (<include refid="userGroupInfoByPageBody"></include>) as A)  
+	</select>
+</mapper>
