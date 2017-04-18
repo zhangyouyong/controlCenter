@@ -97,12 +97,14 @@ public class UserPermissionController {
 	 * @param subUserId
 	 * @return
 	 */
+	@RequestMapping("removeSubUser")
+	@ResponseBody
 	public Map<String,Object> removeSubUser(final Long parentUserId,final Long subUserId){
 		OperateTemplate template=new HttpTemplate() {
 			
 			@Override
 			protected void doSomething() throws Exception {
-				
+				userPermissionServcie.removeSubUser(parentUserId, subUserId);
 			}
 		};
 		return template.operate();
@@ -138,7 +140,7 @@ public class UserPermissionController {
 
 			@Override
 			protected void doSomething() throws Exception {
-				userGroupRelationService.userGroupRelation(model);
+				userGroupRelationService.userGroupRelation(model); 
 			}
 			
 		};
