@@ -47,5 +47,7 @@
 	<select id="querySubUserByPage.count" parameterType="map" resultType="java.lang.Integer">
 		 select count(1) from ( (<include refid="querySubUserByPageBody"></include>) as A)  
 	</select>
-	<delete id=""></delete>
+	<delete id="removeSubUser" parameterType="map">
+		delete from base_user  where userid=#{parentUserId} and user_parent=#{subUserId}
+	</delete>
 </mapper>
