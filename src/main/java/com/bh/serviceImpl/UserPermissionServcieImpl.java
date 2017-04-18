@@ -35,7 +35,13 @@ public class UserPermissionServcieImpl implements UserPermissionServcie {
 	@Override
 	public void removeSubUser(Long parentUserId, Long subUserId)
 			throws BHException {
-		// TODO Auto-generated method stub
+		if(parentUserId==null){
+			throw new BHException("parentUserId不能为空",BHExceptionType.COMMIT_NULL);
+		}
+		if(subUserId==null){
+			throw new BHException("subUserId不能为空",BHExceptionType.COMMIT_NULL);
+		}
+		baseUserDao.removeSubUser(parentUserId, subUserId);
 	}
 
 }
