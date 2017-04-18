@@ -161,7 +161,7 @@ public class UserPermissionController {
 			}
 		};
 		return template.operate();
-	}
+	} 
 	/**
 	 * 查看组绑定用户详情
 	 * @return
