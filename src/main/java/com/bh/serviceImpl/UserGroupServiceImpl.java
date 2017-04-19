@@ -24,7 +24,10 @@ public class UserGroupServiceImpl  implements UserGroupService{
 	@Override
 	public Long addUserGruop(String groupName, String groupDescribe,Long userId)
 			throws BHException {
-		// TODO Auto-generated method stub
+		boolean flag=userGroupDao.checkGroupName(groupName, userId);//检测用户名是否重复
+		 if(flag){
+			 throw new BHException("组名已存在！",BHExceptionType.EXIST_GROUP);
+		 }
 	   UserGroup group=new UserGroup();
 	   group.setGroupDescribe(groupDescribe);
 	   group.setName(groupName);

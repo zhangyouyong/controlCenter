@@ -42,4 +42,7 @@
 			ON user_group.id=user_group_relation.group_id
 		where user_group.id = #{groupId}
 	</delete>
+	<select id="checkGroupName" parameterType="map" resultType="integer">
+		select count(1) from user_group ug where ug.`name`=#{groupName} and ug.cread_by=#{loginUserId}
+	</select>
 </mapper>

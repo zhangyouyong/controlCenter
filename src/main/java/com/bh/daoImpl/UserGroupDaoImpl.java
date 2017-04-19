@@ -37,4 +37,13 @@ public class UserGroupDaoImpl extends BaseDao<UserGroup> implements UserGroupDao
 		getSqlSession().delete("UserGroup.removeUserGroup", groupId);
 	}
 
+	@Override
+	public boolean checkGroupName(String groupName, Long loginUserId) {
+		Map<String,Object> parameters=new HashMap<String,Object>();
+		parameters.put("groupName", groupName);
+		parameters.put("loginUserId", loginUserId);
+		Integer count=(Integer)getSqlSession().selectOne("UserGroup.checkGroupName", parameters);
+		return count>0?true:false;
+	}
+
 }
