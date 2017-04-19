@@ -15,6 +15,13 @@
 			(#{userId},#{groupId},now())
 		</foreach>
 	</insert>
+	<!-- 用户关联多个组 -->
+	<insert id="userRelevanceGroup" parameterType="com.bh.model.UserRelevanceGroupModel">
+		insert into user_group_relation(user_id,group_id,cread_time) values 
+		<foreach collection="groupIds" item="groupId"  separator="," >
+			(#{userId},#{groupId},now())
+		</foreach>
+	</insert>
 	<select id="groupSelectUser" parameterType="java.lang.Long" resultType="map">
 		SELECT
 			bu.login_name userName,

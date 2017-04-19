@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.bh.entity.UserGroupRelation;
 import com.bh.model.UserGropRelationModel;
+import com.bh.model.UserRelevanceGroupModel;
 import com.bh.dao.UserGroupRelationDao;
 import com.shuyin.framework.database.dao.BaseDao;
 
@@ -52,6 +53,13 @@ public class UserGroupRelationDaoImpl extends BaseDao<UserGroupRelation> impleme
 		result.put("selects", selects);
 		result.put("noSelects",noSelects);
 		return result;
+	}
+	/**
+	 * 用户关联多个组
+	 */
+	@Override
+	public void userRelevanceGroup(UserRelevanceGroupModel model) {
+		getSqlSession().insert("userGroupRelation.userRelevanceGroup", model);
 	}
 
 	

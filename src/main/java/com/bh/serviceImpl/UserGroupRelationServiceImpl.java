@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bh.dao.UserGroupRelationDao;
 import com.bh.model.UserGropRelationModel;
+import com.bh.model.UserRelevanceGroupModel;
 import com.bh.service.UserGroupRelationService;
 import com.shuyin.framework.exception.BHException;
 
@@ -50,6 +51,11 @@ public class UserGroupRelationServiceImpl  implements UserGroupRelationService{
 			throws BHException {
 		// TODO Auto-generated method stub
 		return userGroupRelationDao.userRelevanceGroup(loginUserId, userId);
+	}
+
+	@Override
+	public void userRelevanceGroup(UserRelevanceGroupModel model) {
+		userGroupRelationDao.userRelevanceGroup(model);
 	}
 	
 

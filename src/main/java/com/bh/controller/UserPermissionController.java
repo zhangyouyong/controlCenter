@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bh.entity.BaseUser;
 import com.bh.entity.UserGroup;
 import com.bh.model.UserGropRelationModel;
+import com.bh.model.UserRelevanceGroupModel;
 import com.bh.service.UserGroupRelationService;
 import com.bh.service.UserGroupService;
 import com.bh.service.UserPermissionServcie;
@@ -208,7 +209,7 @@ public class UserPermissionController {
 		return template.operate();
 	}
 	/**
-	 * 用户添加组
+	 * 用户添加组列表
 	 * @param loginUserId
 	 * @param userId
 	 * @return
@@ -220,6 +221,22 @@ public class UserPermissionController {
 			@Override
 			protected void doSomething() throws Exception {
 				map.put("data", userGroupRelationService.userRelevanceGroup(loginUserId, userId));
+			}
+		};
+		return template.operate();
+	}
+	/**
+	 * 用户添加多个组
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("userRelevanceGroup")
+	@ResponseBody
+	public Map<String,Object> userRelevanceGroup(@RequestBody final UserRelevanceGroupModel model){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				userGroupRelationService.userRelevanceGroup(model);
 			}
 		};
 		return template.operate();
