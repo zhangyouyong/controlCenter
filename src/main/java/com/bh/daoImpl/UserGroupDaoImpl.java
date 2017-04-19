@@ -2,7 +2,9 @@ package com.bh.daoImpl;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.stereotype.Repository;
+
 import com.bh.dao.UserGroupDao;
 import com.bh.entity.UserGroup;
 import com.shuyin.framework.database.dao.BaseDao;
@@ -28,6 +30,11 @@ public class UserGroupDaoImpl extends BaseDao<UserGroup> implements UserGroupDao
 		result.put("total", selectPage.getTotalItems());
 		result.put("rows", selectPage.getResult());
 		return result;
+	}
+
+	@Override
+	public void removeUserGroup(Long groupId) {
+		getSqlSession().delete("UserGroup.removeUserGroup", groupId);
 	}
 
 }

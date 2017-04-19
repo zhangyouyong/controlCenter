@@ -54,6 +54,24 @@ public class UserPermissionController {
 		return template.operate();
 	}
 	/**
+	 * 删除用户组
+	 * @param loginUserId
+	 * @param groupId
+	 * @return
+	 */
+	@RequestMapping("removeUserGroup")
+	@ResponseBody
+	public Map<String,Object> removeUserGroup(final Long groupId ){
+		OperateTemplate template=new HttpTemplate() {
+			
+			@Override
+			protected void doSomething() throws Exception {
+				userGroupService.removeUserGroup(groupId);
+			}
+		};
+		return template.operate();
+	}
+	/**
 	 * 根据用户id查询用户组列表
 	 * @param userId
 	 * @return

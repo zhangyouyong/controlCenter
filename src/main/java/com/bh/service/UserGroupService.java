@@ -9,4 +9,5 @@ import com.shuyin.framework.mybatis.Page;
 public interface UserGroupService {
 	Long addUserGruop(String groupName,String groupDescribe,Long userId) throws BHException;
 	Map<String, Object> groupInfo(Long userId,String groupName, Page<UserGroup> page) throws BHException;
+	void removeUserGroup(Long groupId) throws BHException;
 }

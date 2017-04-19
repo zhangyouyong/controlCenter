@@ -35,11 +35,18 @@ public class UserGroupServiceImpl  implements UserGroupService{
 
 	@Override
 	public Map<String, Object> groupInfo(Long userId,String groupName, Page<UserGroup> page) throws BHException {
-		// TODO Auto-generated method stub
 		if(userId==null){
 			throw new BHException("userId不能为空!",BHExceptionType.MISS_FIELD);
 		}
 		return userGroupDao.groupInfo(userId,groupName,page);
+	}
+
+	@Override
+	public void removeUserGroup(Long groupId) throws BHException {
+		if(groupId==null){
+			throw new BHException("groupId不能为空", BHExceptionType.MISS_FIELD);
+		}
+		userGroupDao.removeUserGroup(groupId);
 	}
 
 }

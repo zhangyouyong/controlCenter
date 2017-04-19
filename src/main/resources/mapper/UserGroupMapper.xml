@@ -32,4 +32,14 @@
 	<select id="userGroupInfoByPage.count" parameterType="map" resultType="java.lang.Integer">
 		 select count(1) from ( (<include refid="userGroupInfoByPageBody"></include>) as A)  
 	</select>
+	<delete id="removeUserGroup" parameterType="Long">
+		DELETE
+			user_group,
+			user_group_relation
+		FROM
+			user_group LEFT JOIN
+			user_group_relation 
+			ON user_group.id=user_group_relation.group_id
+		where user_group.id = #{groupId}
+	</delete>
 </mapper>
