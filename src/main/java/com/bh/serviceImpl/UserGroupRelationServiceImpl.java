@@ -44,6 +44,13 @@ public class UserGroupRelationServiceImpl  implements UserGroupRelationService{
 		// TODO Auto-generated method stub
 		return userGroupRelationDao.userGroupRelationInfo(loginUserId, userGroupId);
 	}
+
+	@Override
+	public Map<String, Object> userRelevanceGroup(Long loginUserId, Long userId)
+			throws BHException {
+		// TODO Auto-generated method stub
+		return userGroupRelationDao.userRelevanceGroup(loginUserId, userId);
+	}
 	
 
 }

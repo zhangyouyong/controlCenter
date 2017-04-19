@@ -52,4 +52,9 @@ public class UserGroupServiceImpl  implements UserGroupService{
 		userGroupDao.removeUserGroup(groupId);
 	}
 
+	@Override
+	public Map<String, Object> groupDetail(Long groupId) throws BHException {
+		return userGroupDao.groupDetail(groupId);
+	}
+
 }

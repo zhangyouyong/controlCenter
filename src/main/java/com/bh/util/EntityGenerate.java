@@ -30,7 +30,7 @@ import com.shuyin.framework.database.entity.generate.TableInfo;
 public class EntityGenerate   {
 	private final StringBuilder sb = new StringBuilder();
 	private int depth = 0;
-	String[] tables ={"base_user"};
+	String[] tables ={"user_group_relation"};
 	private static final String entityPackage = "com.bh.entity";
 	private static final String daoPackage = "com.bh.dao";
 	private static final String daoImplPackage = "com.bh.daoImpl";

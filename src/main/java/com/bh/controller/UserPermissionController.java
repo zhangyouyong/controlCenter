@@ -53,9 +53,23 @@ public class UserPermissionController {
 		};
 		return template.operate();
 	}
+	@RequestMapping("groupDatail")
+	@ResponseBody
+	public Map<String,Object> groupDetail(final Long groupId){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				map.put("data",userGroupService.groupDetail(groupId));
+			}
+		};
+		return template.operate();
+	}
 	/**
 	 * 删除用户组
 	 * @param loginUserId
+	 * 
+	 * 
+	 * 
 	 * @param groupId
 	 * @return
 	 */
@@ -63,7 +77,6 @@ public class UserPermissionController {
 	@ResponseBody
 	public Map<String,Object> removeUserGroup(final Long groupId ){
 		OperateTemplate template=new HttpTemplate() {
-			
 			@Override
 			protected void doSomething() throws Exception {
 				userGroupService.removeUserGroup(groupId);
@@ -80,7 +93,6 @@ public class UserPermissionController {
 	@ResponseBody
 	public Map<String,Object> userGroupList(final Long loginId,final String groupName,final Integer page,final Integer rows){
 		OperateTemplate template=new HttpTemplate() {
-			
 			@Override
 			protected void doSomething() throws Exception {
 				Page<UserGroup> pageResult = new Page<UserGroup>();
@@ -102,9 +114,7 @@ public class UserPermissionController {
 			
 			@Override
 			protected void doSomething() throws Exception {
-				// TODO Auto-generated method stub
 				map.put("userId",userPermissionServcie.insertSubUser(user));
-				
 			}
 		};
 		return template.operate();
@@ -194,6 +204,23 @@ public class UserPermissionController {
 				map.put("data",userGroupRelationService.userGroupRelationInfo(loginUserId, userGroupId));
 			}
 			 
+		};
+		return template.operate();
+	}
+	/**
+	 * 用户添加组
+	 * @param loginUserId
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping("userRelevanceGroupInfo")
+	@ResponseBody
+	public Map<String,Object> userRelevanceGroupInfo(final Long loginUserId,final Long userId){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				map.put("data", userGroupRelationService.userRelevanceGroup(loginUserId, userId));
+			}
 		};
 		return template.operate();
 	}

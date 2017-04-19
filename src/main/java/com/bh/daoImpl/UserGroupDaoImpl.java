@@ -1,6 +1,7 @@
 package com.bh.daoImpl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -44,6 +45,16 @@ public class UserGroupDaoImpl extends BaseDao<UserGroup> implements UserGroupDao
 		parameters.put("loginUserId", loginUserId);
 		Integer count=(Integer)getSqlSession().selectOne("UserGroup.checkGroupName", parameters);
 		return count>0?true:false;
+	}
+
+	@Override
+	public Map<String, Object> groupDetail(Long groupId) {
+		Map<String,Object> result=new HashMap<String, Object>();
+		List<Object> groupList=getSqlSession().selectList("UserGroup.groupDetail",groupId);
+		List<Object> groupUserInfo=getSqlSession().selectList("UserGroup.groupUserInfo",groupId);
+		result.put("groupInfo", groupList.get(0));
+		result.put("groupUserInfo",groupUserInfo);
+		return result;
 	}
 
 }

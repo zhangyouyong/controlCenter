@@ -45,4 +45,27 @@
 	<select id="checkGroupName" parameterType="map" resultType="integer">
 		select count(1) from user_group ug where ug.`name`=#{groupName} and ug.cread_by=#{loginUserId}
 	</select>
+	<select id="groupDetail" parameterType="Long" resultType="map">
+		SELECT
+			ug.id userGroupId,
+			ug.`name`,
+			ug.group_describe AS groupDescribe,
+				DATE_FORMAT(ug.cread_time,'%Y-%m-%d') creadTime
+		FROM
+			user_group ug
+			where ug.id=#{groupId}
+	</select>
+	<select id="groupUserInfo" parameterType="Long" resultType="map">
+		SELECT
+			bu.login_name loginName,
+			DATE_FORMAT(ugr.cread_time,'%Y-%m-%d') creadTime,
+			bu.userid userId,
+			ugr.group_id groupId
+		FROM
+			user_group_relation ugr,
+			base_user bu
+		WHERE
+			bu.userid = ugr.user_id
+		and ugr.group_id=#{groupId}
+	</select>
 </mapper>

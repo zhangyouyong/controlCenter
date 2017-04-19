@@ -23,6 +23,9 @@ public class UserGroupRelation extends AbstractEntity implements Cloneable{
 	/** group_id INT */
 	@Entity(columnName = "group_id")
 	protected java.lang.Integer groupId;//
+	/** cread_time DATETIME */
+	@Entity(columnName = "cread_time")
+	protected java.util.Date creadTime;//
 
 	/**
 	 * @Title: id
@@ -74,6 +77,23 @@ public class UserGroupRelation extends AbstractEntity implements Cloneable{
 	 */
 	public void setGroupId(java.lang.Integer groupId) {
 		this.groupId = groupId;
+	}
+	/**
+	 * @Title: cread_time
+	 * @Description: 
+	 * @return java.util.Date
+	 */
+	public java.util.Date getCreadTime() {
+		return creadTime;
+	}
+
+	/**
+	 * @Title: cread_time
+	 * @Description: 
+	 * @param java.util.Date
+	 */
+	public void setCreadTime(java.util.Date creadTime) {
+		this.creadTime = creadTime;
 	}
 
 	/**

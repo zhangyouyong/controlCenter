@@ -8,10 +8,11 @@
 		</foreach>
 		and group_id=#{groupId}
 	</delete>
+	<!-- 组关联多个用户 -->
 	<insert id="insertUserGroup" parameterType="com.bh.model.UserGropRelationModel">
-		insert into user_group_relation(user_id,group_id) values 
+		insert into user_group_relation(user_id,group_id,cread_time) values 
 		<foreach collection="userIds" item="userId"  separator="," >
-			(#{userId},#{groupId})
+			(#{userId},#{groupId},now())
 		</foreach>
 	</insert>
 	<select id="groupSelectUser" parameterType="java.lang.Long" resultType="map">
@@ -41,5 +42,36 @@
 				bu.userid = ugr.user_id
 			AND group_id=#{userGroupId}
 		)
+	</select>
+	<select id="userSelectGroup" parameterType="Long" resultType="map">
+		SELECT
+			ug.`name` groupName,
+			ug.id groupId
+		FROM
+			user_group_relation ugr,
+			user_group ug
+		WHERE
+			ugr.group_id = ug.id
+		and
+			ugr.user_id = #{userId}
+	</select>
+	
+	<select id="userNoSelectGroup" parameterType="map" resultType="map">
+		SELECT
+			ug.id groupId,
+			ug.`name` groupName
+		FROM
+			user_group ug 
+			where ug.cread_by=#{loginUserId}
+		and
+			NOT EXISTS (
+				SELECT
+					1
+				FROM
+					user_group_relation ugr
+				WHERE
+					ug.id = ugr.group_id
+				and
+					ugr.user_id = #{userId})
 	</select>
 </mapper>

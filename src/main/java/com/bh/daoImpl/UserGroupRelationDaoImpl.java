@@ -40,6 +40,20 @@ public class UserGroupRelationDaoImpl extends BaseDao<UserGroupRelation> impleme
 		return result;
 	}
 
+	@Override
+	public Map<String, Object> userRelevanceGroup(Long loginUserId, Long userId) {
+		Map<String,Object> parameters=new HashMap<String, Object>();
+		Map<String,Object> result=new HashMap<String,Object>();
+		// TODO Auto-generated method stub
+		parameters.put("loginUserId", loginUserId);
+		parameters.put("userId", userId);
+		List<Object> selects=getSqlSession().selectList("userGroupRelation.userSelectGroup", userId);
+		List<Object> noSelects=getSqlSession().selectList("userGroupRelation.userNoSelectGroup", parameters);
+		result.put("selects", selects);
+		result.put("noSelects",noSelects);
+		return result;
+	}
+
 	
 
 }
