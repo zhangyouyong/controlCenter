@@ -241,4 +241,21 @@ public class UserPermissionController {
 		};
 		return template.operate();
 	}
+	/**
+	 * 把组剔除当前用户
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("userGroupRemoveByUser")
+	@ResponseBody
+	public Map<String,Object> userGroupRemoveByUser(@RequestBody final UserRelevanceGroupModel model){
+		OperateTemplate template=new HttpTemplate() {
+			
+			@Override
+			protected void doSomething() throws Exception {
+				userGroupRelationService.userGroupRemoveByUser(model);
+			}
+		};
+		return template.operate();
+	}
 }

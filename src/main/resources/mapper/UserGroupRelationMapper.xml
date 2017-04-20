@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userGroupRelation">
+	<!-- 根据组解除用户绑定 -->
 	<delete id="userGroupRemove" parameterType="com.bh.model.UserGropRelationModel">
 		delete from user_group_relation where user_id in
 		<foreach collection="userIds" item="userId" open="(" separator="," close=")">
 			#{userId}
 		</foreach>
 		and group_id=#{groupId}
+	</delete>
+	<delete id="userGroupRemoveByUserId" parameterType="com.bh.model.UserRelevanceGroupModel">
+		delete from user_group_relation where group_id in
+		<foreach collection="groupIds" item="groupId" open="(" separator="," close=")">
+			#{groupId}
+		</foreach>
+		and user_id=#{userId}
 	</delete>
 	<!-- 组关联多个用户 -->
 	<insert id="insertUserGroup" parameterType="com.bh.model.UserGropRelationModel">

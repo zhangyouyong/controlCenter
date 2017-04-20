@@ -11,4 +11,5 @@ public interface UserGroupRelationDao{
 	void userGroupRemove(UserGropRelationModel model);
 	Map<String,Object> userGroupRelationInfo(Long loginUserId,Long userGroupId);
 	Map<String,Object> userRelevanceGroup(Long loginUserId,Long userId);
+	void userGroupRemoveByUser(UserRelevanceGroupModel model);
 }

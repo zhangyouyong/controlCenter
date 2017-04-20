@@ -12,6 +12,7 @@ import com.bh.model.UserGropRelationModel;
 import com.bh.model.UserRelevanceGroupModel;
 import com.bh.service.UserGroupRelationService;
 import com.shuyin.framework.exception.BHException;
+import com.shuyin.framework.exception.BHExceptionType;
 
 @Service(value="UserGroupRelationService")
 public class UserGroupRelationServiceImpl  implements UserGroupRelationService{
@@ -55,7 +56,21 @@ public class UserGroupRelationServiceImpl  implements UserGroupRelationService{
 
 	@Override
 	public void userRelevanceGroup(UserRelevanceGroupModel model) {
+
 		userGroupRelationDao.userRelevanceGroup(model);
+	}
+
+	@Override
+	public void userGroupRemoveByUser(UserRelevanceGroupModel model) throws BHException{
+		List<Long> groupIds=model.getGroupIds();
+		Long userId=model.getUserId();
+		if(groupIds==null){
+			throw new BHException("groupIds不能为空!", BHExceptionType.COMMIT_NULL);
+		}
+		if(userId==null){
+			throw new BHException("userId不能为空",BHExceptionType.COMMIT_NULL);
+		}
+		userGroupRelationDao.userGroupRemoveByUser(model);
 	}
 	
 

@@ -62,6 +62,11 @@ public class UserGroupRelationDaoImpl extends BaseDao<UserGroupRelation> impleme
 		getSqlSession().insert("userGroupRelation.userRelevanceGroup", model);
 	}
 
+	@Override
+	public void userGroupRemoveByUser(UserRelevanceGroupModel model) {
+		getSqlSession().delete("userGroupRelation.userGroupRemoveByUserId", model);
+	}
+
 	
 
 }

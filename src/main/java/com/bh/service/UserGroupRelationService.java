@@ -12,4 +12,5 @@ public interface UserGroupRelationService {
 	void userGroupRemove(UserGropRelationModel model) throws BHException;//用户组解除绑定
 	Map<String,Object> userGroupRelationInfo(Long loginUserId,Long userGroupId) throws BHException;
 	Map<String, Object> userRelevanceGroup(Long loginUserId, Long userId) throws BHException;
+	void userGroupRemoveByUser(UserRelevanceGroupModel model) throws BHException;//用户移除多个组
 }
