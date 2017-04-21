@@ -26,6 +26,20 @@
 			bu.userid =#{userId}
 			and bu.`status`=1
 	</select>
+	<select id="accountUserInfoById" parameterType="Long" resultType="Map">
+		SELECT
+			bu.userid userId,
+			bu.login_name loginName,
+			bu.display_name displayName,
+			bu.phone,
+			bu.email,
+			bu.industry,
+			bu.age,
+			bu.`name`
+		FROM
+			base_user bu
+		where bu.userid=#{userId}
+	</select>
 	<sql id="querySubUserByPageBody">
 		SELECT
 			bu.userid userId,

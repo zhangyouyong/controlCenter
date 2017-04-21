@@ -174,6 +174,14 @@ public class BaseUserServiceImpl implements BaseUserService {
 		}
 		return baseUserDao.userInfoById(userId);
 	}
+	@Override
+	public Map<String, Object> accountUserInfoById(Long userId)
+			throws BHException {
+		if(userId==null){
+			throw new BHException("userId不能为空",BHExceptionType.MISS_FIELD);
+		}
+		return baseUserDao.accountUserInfoById(userId);
+	}
 	
 	
 }

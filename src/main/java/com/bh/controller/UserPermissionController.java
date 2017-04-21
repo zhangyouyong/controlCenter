@@ -13,6 +13,7 @@ import com.bh.entity.BaseUser;
 import com.bh.entity.UserGroup;
 import com.bh.model.UserGropRelationModel;
 import com.bh.model.UserRelevanceGroupModel;
+import com.bh.service.BaseUserService;
 import com.bh.service.UserGroupRelationService;
 import com.bh.service.UserGroupService;
 import com.bh.service.UserPermissionServcie;
@@ -35,6 +36,9 @@ public class UserPermissionController {
 	@Qualifier("UserGroupRelationService")
 	UserGroupRelationService userGroupRelationService;
 	
+	@Autowired
+	@Qualifier("BaseUserService")
+	BaseUserService baseUserService;
 	/**
 	 * 添加组
 	 * @param groupName
@@ -258,4 +262,22 @@ public class UserPermissionController {
 		};
 		return template.operate();
 	}
+	/**
+	 * 用户信息
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping("userInfo")
+	@ResponseBody
+	public Map<String,Object> userInfo(final Long userId){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				map.put("data",baseUserService.accountUserInfoById(userId));
+			}
+		};
+		return template.operate();
+	}
 }
+
+

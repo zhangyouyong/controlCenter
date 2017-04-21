@@ -28,4 +28,6 @@ public interface BaseUserDao{
 	void removeSubUser(Long parentUserId,Long subUserId);//删除子用户
 	
 	boolean checkSubUserName(String loginName);//判断用户名是否已存在
+	
+	Map<String,Object> accountUserInfoById(Long userId);
 }

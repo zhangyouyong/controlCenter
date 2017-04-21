@@ -98,6 +98,13 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 		Integer count=(Integer)getSqlSession().selectOne("User.checkSubUserName", loginName);
 		return count>0?true:false;
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> accountUserInfoById(Long userId) {
+		Map<String,Object> result=(Map<String,Object>)getSqlSession().selectOne("User.accountUserInfoById", userId);
+		return result;
+	}
 
 
 

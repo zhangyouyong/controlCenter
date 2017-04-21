@@ -21,4 +21,5 @@ public interface BaseUserService {
 	void phoneCodeFrequency(String phone) throws BHException;//设置手机发送频率
 	void isNotExistToken(String accessToken,String userId) throws BHException;//判断token是否存在
 	 Map<String,Object> userInfoById(Integer userId) throws BHException; //根据用户id获取用户信息
+	 Map<String,Object> accountUserInfoById(Long userId) throws BHException;
 }
