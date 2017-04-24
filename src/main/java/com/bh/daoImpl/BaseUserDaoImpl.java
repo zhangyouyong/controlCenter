@@ -106,6 +106,6 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 		return result;
 	}
 
-
+	
 
 }

@@ -32,6 +32,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 	@Autowired
 	@Qualifier("BaseUserDao")
 	BaseUserDao baseUserDao;
+	
 	@Override
 	public String getPhoneCode(String phone) throws BHException {
 		String authCode=GetSqs.getAuthCode();
@@ -88,16 +89,14 @@ public class BaseUserServiceImpl implements BaseUserService {
 		result.put("userId", baserUser.getUserId());
 		result.put("tokenCode", loginToken(baserUser));
 		return result;
-		
-		
 	}
-	
+
 	private String loginToken(BaseUserModel baserUser){
-		String redisKey="Consoles_Login_User_Token_"+baserUser.getUserId();
+/*		String redisKey="Consoles_Login_User_Token_"+baserUser.getUserId();
 		if(redisClientTemplate.exists(redisKey)){
 			Map<String,String> redisResult=redisClientTemplate.hgetAll(redisKey);
 			return redisResult.get("tokenCode");
-		}
+		}*/
 		Map<String,String> redisMap=new HashMap<String, String>();
 		String userId=baserUser.getUserId().toString();
 		//String userName=baserUser.getUserId().toString();
@@ -112,7 +111,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 	//	redisMap.put("tokenCode", tokenCode);
 		String keyToke=MD5.MD5Encode(tokenCode);
 		redisMap.put("tokenCode", keyToke);
-		redisClientTemplate.hmset("Consoles_Login_User_Token_"+userId,redisMap,60*15);
+		redisClientTemplate.hmset(keyToke,redisMap,60*15);
 		return keyToke;
 	}
 
@@ -181,6 +180,18 @@ public class BaseUserServiceImpl implements BaseUserService {
 			throw new BHException("userId不能为空",BHExceptionType.MISS_FIELD);
 		}
 		return baseUserDao.accountUserInfoById(userId);
+	}
+	@Override
+	public Map<String, Object> userInfoByToken(String tokenCode)
+			throws BHException {
+		boolean exists= redisClientTemplate.exists(tokenCode);
+		if(!exists){
+			throw new BHException("tokenCode失效或者不存在!",BHExceptionType.TOKEN_EXIST);
+		}
+		Map<String,String> reidsObject= redisClientTemplate.hgetAll(tokenCode);
+		Integer userId=Integer.parseInt(reidsObject.get("userId"));
+		
+		return baseUserDao.userInfoById(userId);
 	}
 	
 	
