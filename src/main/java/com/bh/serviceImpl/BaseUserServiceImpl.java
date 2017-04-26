@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.bh.dao.BaseUserDao;
+import com.bh.entity.BaseUser;
 import com.bh.model.BaseUserModel;
 import com.bh.service.BaseUserService;
 import com.bh.util.DateUtil;
@@ -192,6 +193,10 @@ public class BaseUserServiceImpl implements BaseUserService {
 		Integer userId=Integer.parseInt(reidsObject.get("userId"));
 		
 		return baseUserDao.userInfoById(userId);
+	}
+	@Override
+	public void updateUser(BaseUser user) throws BHException {
+		baseUserDao.updateBaseUser(user);
 	}
 	
 	

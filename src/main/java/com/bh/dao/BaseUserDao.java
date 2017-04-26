@@ -19,7 +19,7 @@ public interface BaseUserDao{
 	
 	Integer userCountByName(String name);//获取用户数量
 	
-	Long insertBaerUser(BaseUser user); //插入用户信息
+	Long insertBaseUser(BaseUser user); //插入用户信息
 	
 	Map<String, Object> subUserInfoByParentId(Integer parentId,String loginName,Page<BaseUser> pageResult);//根据父用户查询子用户信息
 	
@@ -30,4 +30,6 @@ public interface BaseUserDao{
 	boolean checkSubUserName(String loginName);//判断用户名是否已存在
 	
 	Map<String,Object> accountUserInfoById(Long userId);
+	
+	void updateBaseUser(BaseUser user);//更新用户信息
 }

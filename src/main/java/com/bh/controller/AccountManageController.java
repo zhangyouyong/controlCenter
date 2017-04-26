@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bh.entity.Authentification;
+import com.bh.entity.BaseUser;
 import com.bh.entity.SysFile;
 import com.bh.service.AuthentificationService;
 import com.bh.service.BaseUserService;
@@ -158,5 +159,18 @@ public class AccountManageController {
 		};
 		return template.operate();
 	}
-	
+	/**
+	 * 更新用户信息
+	 * @param user
+	 * @return
+	 */
+	public Map<String,Object> updateUser(final BaseUser user){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				baseUserService.updateUser(user);
+			}
+		};
+		return template.operate();
+	}
 }

@@ -1,14 +1,7 @@
 package com.bh.service;
 import java.util.Map;
 
-
-
-
-
-
-
-
-
+import com.bh.entity.BaseUser;
 import com.shuyin.framework.exception.BHException;
 
 public interface BaseUserService {
@@ -23,4 +16,5 @@ public interface BaseUserService {
 	 Map<String,Object> userInfoById(Integer userId) throws BHException; //根据用户id获取用户信息
 	 Map<String,Object> accountUserInfoById(Long userId) throws BHException;//
 	 Map<String,Object> userInfoByToken(String tokenCode) throws BHException;
+	 void updateUser(BaseUser user) throws BHException;
 }

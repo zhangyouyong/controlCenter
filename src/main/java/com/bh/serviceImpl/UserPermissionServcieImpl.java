@@ -27,7 +27,7 @@ public class UserPermissionServcieImpl implements UserPermissionServcie {
 			throw new BHException("父用户id不能为空!", BHExceptionType.COMMIT_NULL);
 		}
 		user.setUserSource(1);
-		return baseUserDao.insertBaerUser(user);
+		return baseUserDao.insertBaseUser(user);
 	}
 	@Override
 	public Map<String, Object> subUserInfoByParentId(Integer parentId,String loginName,Page<BaseUser> pageResult)

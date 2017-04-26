@@ -63,7 +63,7 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 	}
 
 	@Override
-	public Long insertBaerUser(BaseUser user) {
+	public Long insertBaseUser(BaseUser user) {
 		return create(user);
 	}
 
@@ -104,6 +104,11 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 	public Map<String, Object> accountUserInfoById(Long userId) {
 		Map<String,Object> result=(Map<String,Object>)getSqlSession().selectOne("User.accountUserInfoById", userId);
 		return result;
+	}
+
+	@Override
+	public void updateBaseUser(BaseUser user) {
+		modify(user);
 	}
 
 	
