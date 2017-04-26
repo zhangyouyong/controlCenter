@@ -1,5 +1,6 @@
 package com.bh.serviceImpl;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class UserPermissionServcieImpl implements UserPermissionServcie {
 			throw new BHException("父用户id不能为空!", BHExceptionType.COMMIT_NULL);
 		}
 		user.setUserSource(1);
+		user.setCreateDate(new Date());
+		user.setUpdateDate(new Date());
 		return baseUserDao.insertBaseUser(user);
 	}
 	@Override
