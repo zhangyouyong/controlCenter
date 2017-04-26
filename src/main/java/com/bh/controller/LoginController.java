@@ -41,7 +41,7 @@ public class LoginController {
 			
 			@Override
 			protected void doSomething() throws Exception {
-			//	userService.phoneCodeFrequency(phone);
+				userService.phoneCodeFrequency(phone);
 				map.put("sessionId",MessageUtil.sendMessageCode(phone, "3Hymah4_4CdaHMEUyH3RiF"));
 			}
 			
@@ -81,7 +81,7 @@ public class LoginController {
 			@Override
 			protected void doSomething() throws Exception {
 				 //String authCode=userService.phoneAuthCode(phone, "_RESTPWD_MSGCODE", "【北航传媒】提醒你的验证码为：");
-			//	userService.phoneCodeFrequency(phone);
+				userService.phoneCodeFrequency(phone);
 				userService.checkUserNotNull(phone);
 				String sessionId=MessageUtil.sendMessageCode(phone,"6rD9XkMcAjm8_XsdhgbZ_Z");
 				map.put("sessionId", sessionId);

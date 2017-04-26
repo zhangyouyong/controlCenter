@@ -27,6 +27,7 @@ public class UserPermissionServcieImpl implements UserPermissionServcie {
 		if(user.getUserParent()==null){
 			throw new BHException("父用户id不能为空!", BHExceptionType.COMMIT_NULL);
 		}
+		user.setStatus(1);
 		user.setUserSource(1);
 		user.setCreateDate(new Date());
 		user.setUpdateDate(new Date());

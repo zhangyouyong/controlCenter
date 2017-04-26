@@ -164,6 +164,8 @@ public class AccountManageController {
 	 * @param user
 	 * @return
 	 */
+	@RequestMapping("updateUser")
+	@ResponseBody
 	public Map<String,Object> updateUser(final BaseUser user){
 		OperateTemplate template=new HttpTemplate() {
 			@Override
