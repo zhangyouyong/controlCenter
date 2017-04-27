@@ -62,7 +62,14 @@
 		 select count(1) from ( (<include refid="querySubUserByPageBody"></include>) as A)  
 	</select>
 	<delete id="removeSubUser" parameterType="map">
-		delete from base_user  where userid=#{parentUserId} and user_parent=#{subUserId}
+		DELETE
+			base_user,
+			user_group_relation
+		FROM
+			base_user LEFT JOIN
+			user_group_relation 
+			ON base_user.userid=user_group_relation.user_id
+		   where base_user.userid=#{subUserId} and base_user.user_parent=#{parentUserId}
 	</delete>
 	<!-- 判断用户名是否存在 -->
 	<select id="checkSubUserName" parameterType="String" resultType="integer">
