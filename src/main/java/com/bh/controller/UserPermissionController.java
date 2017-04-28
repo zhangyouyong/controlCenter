@@ -180,10 +180,6 @@ public class UserPermissionController {
 		};
 		return template.operate();
 	}
-	public static void main(String[] args) {
-		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("key","value");
-	}
 	/**
 	 * 解除用户组关联
 	 * @param model

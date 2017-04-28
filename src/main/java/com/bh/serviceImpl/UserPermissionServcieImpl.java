@@ -36,7 +36,6 @@ public class UserPermissionServcieImpl implements UserPermissionServcie {
 	@Override
 	public Map<String, Object> subUserInfoByParentId(Integer parentId,String loginName,Page<BaseUser> pageResult)
 			throws BHException {
-		// TODO Auto-generated method stub
 		return baseUserDao.subUserInfoByParentId(parentId,loginName,pageResult);
 	}
 	@Override

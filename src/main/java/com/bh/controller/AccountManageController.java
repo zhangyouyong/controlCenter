@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -119,18 +118,18 @@ public class AccountManageController {
 		return template.operate();
 	}
 	
-	@RequestMapping("userInfo/{userId}")
-	@ResponseBody
-	public Map<String,Object> userInfoById(@PathVariable("userId")final  Integer userId ){
-		OperateTemplate template=new HttpTemplate() {
-			
-			@Override
-			protected void doSomething() throws Exception {
-				map.put("data",baseUserService.userInfoById(userId));
-			}
-		};
-		return template.operate();
-	}
+//	@RequestMapping("userInfo/{userId}")
+//	@ResponseBody
+//	public Map<String,Object> userInfoById(@PathVariable("userId")final  Integer userId ){
+//		OperateTemplate template=new HttpTemplate() {
+//			
+//			@Override
+//			protected void doSomething() throws Exception {
+//				map.put("data",baseUserService.userInfoById(userId));
+//			}
+//		};
+//		return template.operate();
+//	}
 	@RequestMapping("userInfo")
 	@ResponseBody
 	public Map<String,Object> userInfoByToken(@RequestParam(value="tokenCode")final  String tokenCode ){
