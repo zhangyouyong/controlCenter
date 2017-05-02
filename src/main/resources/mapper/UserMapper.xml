@@ -35,10 +35,20 @@
 			bu.email,
 			bu.industry,
 			bu.age,
-			bu.`name`
+			bu.`name`,
+			(
+				CASE
+				WHEN ah.auth_state IS NULL THEN
+					1
+				ELSE
+					ah.auth_state
+				END
+			) authState
 		FROM
 			base_user bu
+		LEFT JOIN authentification ah ON bu.userid = ah.user_id
 		where bu.userid=#{userId}
+		ORDER BY bu.userid ASC
 	</select>
 	<sql id="querySubUserByPageBody">
 		SELECT
