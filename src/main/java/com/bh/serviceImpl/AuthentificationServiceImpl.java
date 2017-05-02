@@ -20,6 +20,7 @@ public class AuthentificationServiceImpl  implements AuthentificationService{
 	@Override
 	public void enterpriseCertification(
 			Authentification authentification) throws BHException {
+		authentification.setAuthState(2);//创建即审核中
 		authentificationDao.enterpriseCertification(authentification);
 	}
 
