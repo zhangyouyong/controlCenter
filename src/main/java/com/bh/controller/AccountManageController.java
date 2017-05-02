@@ -77,6 +77,7 @@ public class AccountManageController {
 			    if(!("jpg,png".contains(fileExt))){
 			    	throw new BHException("只能上传jpg和png文件！",BHExceptionType.FILE_TYPE_ERROR);
 			    }
+			    String saveFileName=fileName.substring(0,fileName.lastIndexOf("."));
 			    String path=request.getSession().getServletContext().getRealPath("/WEB-INF/image");
 			    File savePath=new File(path);
 			    if(!savePath.exists()){
@@ -87,7 +88,7 @@ public class AccountManageController {
 			    SysFile sysFile=new SysFile();
 			    sysFile.setCreadtime(new Date());
 			    sysFile.setFileDescribe("用户营业执照图片");
-			    sysFile.setFileName(fileName);
+			    sysFile.setFileName(saveFileName);
 			    sysFile.setFileUrl(fileUrl+"/image/"+fileName);
 			    sysFile.setFileType("image");
 			    result.put("fileId",sysFileService.addSysFile(sysFile));
@@ -99,6 +100,10 @@ public class AccountManageController {
 	@RequestMapping("test")
 	public String index(final HttpServletRequest request){
 		return "index";
+	}
+	public static void main(String[] args) {
+		String fileName="QQ图片20170322104029";
+		System.out.println(fileName.substring(0,fileName.lastIndexOf(".")));
 	}
 	/**
 	 * 企业认证
