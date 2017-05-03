@@ -15,7 +15,7 @@ public interface BaseUserDao{
 
 	BaseUserModel login(Map<String,Object> map) throws Exception; //登录
 	
-	void resetPassword(BaseUserModel user) throws Exception; //重置密码
+	void resetPassword(BaseUserModel user) throws BHException; //重置密码
 	
 	Integer userCountByName(String name);//获取用户数量
 	

@@ -24,6 +24,7 @@ import com.bh.service.BaseUserService;
 import com.bh.service.FileManageService;
 import com.bh.service.SysDictionaryService;
 import com.bh.service.SysFileService;
+import com.shuyin.framework.component.MessageComponent;
 import com.shuyin.framework.controller.HttpTemplate;
 import com.shuyin.framework.controller.OperateTemplate;
 import com.shuyin.framework.exception.BHException;
@@ -50,6 +51,7 @@ public class AccountManageController {
 	@Autowired
 	@Qualifier("BaseUserService")
 	BaseUserService baseUserService;
+
 	/**
 	 * 企业认证文件上传
 	 * @param request
@@ -97,10 +99,10 @@ public class AccountManageController {
 		};
 		return template.operate();
 	}
-	@RequestMapping("test")
-	public String index(final HttpServletRequest request){
-		return "index";
-	}
+//	@RequestMapping("test")
+//	public String index(final HttpServletRequest request){
+//		return "index";
+//	}
 	public static void main(String[] args) {
 		String fileName="QQ图片20170322104029";
 		System.out.println(fileName.substring(0,fileName.lastIndexOf(".")));

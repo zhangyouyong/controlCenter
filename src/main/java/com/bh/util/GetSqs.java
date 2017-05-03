@@ -148,11 +148,9 @@ public class GetSqs {
 		String primaryKey =uuid.toString().replace("-","").toUpperCase();
 		return primaryKey;
 	} 
-	public static void main(String[] args) {
-		System.out.println(getUUID());
-	}
+
 	/**
-	 * 获取4位验证码
+	 * 获取6位验证码
 	* @Title: getAuthCode 
 	* @Description: TODO
 	* @param @return
@@ -163,7 +161,7 @@ public class GetSqs {
 	 */
 	public static String getAuthCode(){
 		Random rd=new Random();
-		int x=rd.nextInt(9999-1000+1)+1000;
+		int x=rd.nextInt(999999-100000+1)+100000;
 		return String.valueOf(x);
 	}
 

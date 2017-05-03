@@ -2,24 +2,38 @@ package com.bh.util;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.UUID;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.IAcsClient;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.exceptions.ServerException;
+import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.profile.IClientProfile;
+import com.aliyuncs.sms.model.v20160927.SingleSendSmsRequest;
+import com.aliyuncs.sms.model.v20160927.SingleSendSmsResponse;
 import com.bh.util.security.DigestUtils;
 import com.bh.util.security.MD5;
 import com.mongodb.util.JSON;
 import com.shuyin.framework3rd.redis.RedisClientTemplate;
 
-
+@Component
 public class MessageUtil {
+
+	
+		public static final String regionId = "cn-hangzhou";
+	    public static final String accessKeyId = "LTAIHGtA98QvCDpY";
+	    public static final String secret = "az86ZjLN5IwQLj7I66jAbfadGHmZ3H";
+	    public static final String product = "Sms";
+	    public static final String domain = "sms.aliyuncs.com";
+	    public static final String signName="志愿服务保障";
 	public static void toMessage(String phone,String content){
 		StringBuffer messageBody; 
 		String str;
@@ -43,7 +57,7 @@ public class MessageUtil {
 		}
 		
 	}
-	
+
 	public static String sendMessageCode(String phone,String templateId){
 		String result="";
 		try {
@@ -111,30 +125,38 @@ public class MessageUtil {
 		}
 		return result;
 	}
-
-    public static void main(String[] args) throws Exception {
-	/*	//System.out.println(MessageUtil.sendMessageCode("15221317798", "3Hymah4_4CdaHMEUyH3RiF"));
-    	//System.out.println(MessageUtil.sendMessageVerifyCode("8M21T0QKkPS84RMJXMAgk8","455741"));
-    	//System.out.println(DateUtil.formatDate2String(new Date(),"yyyy-MM-dd hh:mm:ss"));
-        	ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath*:/spring-config/applicationContext.xml");
-        	RedisClientTemplate redisClient = (RedisClientTemplate)ctx.getBean("redisClientTemplate");
-    	   	Map<String,String> map =new HashMap<String,String>();
-    	   	map.put("aa", "aa");
-    	   	map.put("bb", "bb");
-    	   	List<Object> list=new ArrayList<Object>();
-    	   	list.add(map);
-//    	   byte[] l=	SerializeUtil.serializeList(list);
-//    	   Object unserialize = SerializeUtil.unserialize(l);
-//    	   System.out.println(unserialize);
-    	   	redisClient.hmset("map",map);
-        	System.out.println(redisClient.hgetAll("map"));
-        	redisClient.hset("map", "bb", "dd");
-        	System.out.println(redisClient.hgetAll("map"));
-        	//System.out.println(redisClient.exists("app_token_6A123A4BC1D8417184336A318554A8E4"));
-          //System.out.println(redisClient.expire("app_token_6A123A4BC1D8417184336A318554A8E4",60*60*24*7));	
-*/  
-    	
-    	System.out.println(UUID.randomUUID());
+    public static String aliyuMessageCode(String mobile,String templateCode)
+    {
+        String code = "";
+        try
+        {
+            Map<String,String > map = new HashMap<>();
+            code = GetSqs.getAuthCode();
+            map.put("code",code);
+            map.put("product",signName);
+            IClientProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, secret);
+            DefaultProfile.addEndpoint(regionId, regionId, product,  domain);
+            IAcsClient client = new DefaultAcsClient(profile);
+            SingleSendSmsRequest request = new SingleSendSmsRequest();
+            request.setSignName(signName);//控制台创建的签名名称
+            request.setTemplateCode(templateCode);//控制台创建的模板CODE
+            request.setParamString(JSON.serialize(map));//短信模板中的变量；数字需要转换为字符串；个人用户每个变量长度必须小于15个字符。"
+            request.setRecNum(mobile);//接收号码
+            SingleSendSmsResponse httpResponse = client.getAcsResponse(request);
+            System.out.println(httpResponse.toString());
+            System.out.println(httpResponse.getRequestId()+"----"+httpResponse.getModel());
+        }
+        catch (ServerException e)
+        {
+            e.printStackTrace();
+        }
+        catch (ClientException e)
+        {
+            e.printStackTrace();
+        }
+        return code;
     }
-	
+
+
+ 
 }

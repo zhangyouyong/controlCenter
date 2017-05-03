@@ -19,6 +19,7 @@ import com.bh.util.GetSqs;
 import com.bh.util.MessageUtil;
 import com.bh.util.StringUtils;
 import com.bh.util.security.MD5;
+import com.shuyin.framework.component.MessageComponent;
 import com.shuyin.framework.exception.BHException;
 import com.shuyin.framework.exception.BHExceptionType;
 import com.shuyin.framework3rd.redis.RedisClientTemplate;
@@ -33,6 +34,10 @@ public class BaseUserServiceImpl implements BaseUserService {
 	@Autowired
 	@Qualifier("BaseUserDao")
 	BaseUserDao baseUserDao;
+	
+	@Autowired
+	@Qualifier("MessageComponent")
+	MessageComponent messageComponent;
 	
 	@Override
 	public String getPhoneCode(String phone) throws BHException {
@@ -64,11 +69,11 @@ public class BaseUserServiceImpl implements BaseUserService {
 		
 	}
 	@Override
-	public Map<String,Object> register(String name, String pwd, String sessionId,String autoCode) throws BHException {
-//		boolean verify=MessageUtil.sendMessageVerifyCode(sessionId, autoCode);
-//		if(!verify){
-//			throw new BHException("短信验证码错误!", BHExceptionType.CODE_ERROR);
-//		}
+	public Map<String,Object> register(String name, String pwd, String autoCode) throws BHException {
+		boolean vlidate=messageComponent.validateMessageCode(name, autoCode,"SMS_53895051");
+		if(!vlidate){
+			throw new BHException("验证码错误",BHExceptionType.CODE_ERROR);
+		}
 		Map<String,Object> result=new HashMap<String,Object>();
 		BaseUserModel baseUser=new BaseUserModel();
 		Long userId=baseUserDao.register(name, pwd);
@@ -117,7 +122,11 @@ public class BaseUserServiceImpl implements BaseUserService {
 	}
 
 	@Override
-	public void resetPassword(String name, String pwd) throws Exception {
+	public void resetPassword(String name, String pwd,String autoCode) throws BHException {
+		boolean vlidate=messageComponent.validateMessageCode(name, autoCode,"SMS_53895049");
+		if(!vlidate){
+			throw new BHException("验证码错误",BHExceptionType.CODE_ERROR);
+		}
 		BaseUserModel baseUser=new BaseUserModel();
 		baseUser.setLoginName(name);
 		baseUser.setPassWord(MD5.MD5Encode(pwd));

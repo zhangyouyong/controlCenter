@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bh.service.BaseUserService;
 import com.bh.util.MessageUtil;
+import com.shuyin.framework.component.MessageComponent;
 import com.shuyin.framework.controller.HttpTemplate;
 import com.shuyin.framework.controller.OperateTemplate;
 
@@ -22,13 +23,17 @@ public class LoginController {
 	@Qualifier("BaseUserService")
 	private BaseUserService userService;
 	
+	@Autowired
+	@Qualifier("MessageComponent")
+	MessageComponent messageComponent;
+	
 	@RequestMapping("register")
 	@ResponseBody
-	public Map<String,Object> register(final @RequestParam(value="name")String name,final @RequestParam(value="pwd") String pwd,final @RequestParam(value="sessionId") String sessionId,final @RequestParam(value="authCode") String authCode){
+	public Map<String,Object> register(final @RequestParam(value="name")String name,final @RequestParam(value="pwd") String pwd,final @RequestParam(value="authCode") String authCode){
 		OperateTemplate templete = new HttpTemplate() {
 			@Override
 			protected void doSomething() throws Exception {
-				map.put("data",userService.register(name, pwd, sessionId, authCode)); 
+				map.put("data",userService.register(name, pwd,authCode)); 
 			}
 		};
 		
@@ -42,7 +47,7 @@ public class LoginController {
 			@Override
 			protected void doSomething() throws Exception {
 				userService.phoneCodeFrequency(phone);
-				map.put("sessionId",MessageUtil.sendMessageCode(phone, "3Hymah4_4CdaHMEUyH3RiF"));
+				map.put("authCode",messageComponent.aliyuMessageCode(phone, "SMS_53895051"));
 			}
 			
 		};
@@ -65,11 +70,11 @@ public class LoginController {
 	@RequestMapping("resetPassword")
 	@ResponseBody
 	
-	public Map<String,Object> resetPassword(final @RequestParam(value="name")String name,final @RequestParam(value="pwd") String pwd){
+	public Map<String,Object> resetPassword(final @RequestParam(value="name")String name,final @RequestParam(value="pwd") String pwd,final @RequestParam(value="authCode") String authCode ){
 		OperateTemplate template=new HttpTemplate() {
 			@Override
 			protected void doSomething() throws Exception {
-				userService.resetPassword(name, pwd);
+				userService.resetPassword(name, pwd,authCode);
 			}
 		};
 		return template.operate();
@@ -83,25 +88,25 @@ public class LoginController {
 				 //String authCode=userService.phoneAuthCode(phone, "_RESTPWD_MSGCODE", "【北航传媒】提醒你的验证码为：");
 				userService.phoneCodeFrequency(phone);
 				userService.checkUserNotNull(phone);
-				String sessionId=MessageUtil.sendMessageCode(phone,"6rD9XkMcAjm8_XsdhgbZ_Z");
-				map.put("sessionId", sessionId);
+				String authCode=messageComponent.aliyuMessageCode(phone,"SMS_53895049");
+				map.put("authCode", authCode);
 			}
 		};
 		return  template.operate();
 	}
-	@RequestMapping("verifyPhoneCode")
-	@ResponseBody
-	public Map<String,Object> verifyPhoneCode(final @RequestParam(value="sessionId")String sessionId,final @RequestParam(value="authCode")String authCode){
-		OperateTemplate template=new HttpTemplate() {
-			
-			@Override
-			protected void doSomething() throws Exception {
-				boolean result=MessageUtil.sendMessageVerifyCode(sessionId, authCode);
-				 map.put("result", result);
-			}
-		};
-		return  template.operate();
-	}
+//	@RequestMapping("verifyPhoneCode")
+//	@ResponseBody
+//	public Map<String,Object> verifyPhoneCode(final @RequestParam(value="sessionId")String sessionId,final @RequestParam(value="authCode")String authCode){
+//		OperateTemplate template=new HttpTemplate() {
+//			
+//			@Override
+//			protected void doSomething() throws Exception {
+//				boolean result=MessageUtil.sendMessageVerifyCode(sessionId, authCode);
+//				 map.put("result", result);
+//			}
+//		};
+//		return  template.operate();
+//	}
 	/**
 	 * 判断token是否存在
 	 * @return

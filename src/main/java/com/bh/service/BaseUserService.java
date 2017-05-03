@@ -6,9 +6,9 @@ import com.shuyin.framework.exception.BHException;
 
 public interface BaseUserService {
 	String getPhoneCode(String phone) throws BHException;//验证码
-	Map<String,Object> register(String name, String pwd, String sessionId,String autoCode)  throws BHException ; //用户注册
+	Map<String,Object> register(String name, String pwd,String autoCode)  throws BHException ; //用户注册
 	Map<String,Object> login(String name,String pwd)  throws Exception ; //用户登录
-	void resetPassword(String name,String pwd) throws Exception;//
+	void resetPassword(String name,String pwd, String autoCode) throws BHException;//
 	String phoneAuthCode(String phone,String redisKey,String content);
 	boolean checkUserNotNull(String phone) throws BHException; //判断用户是否存在;
 	void phoneCodeFrequency(String phone) throws BHException;//设置手机发送频率

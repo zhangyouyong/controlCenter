@@ -52,7 +52,7 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 	}
 
 	@Override
-	public void resetPassword(BaseUserModel user) throws Exception {
+	public void resetPassword(BaseUserModel user) throws BHException {
 		getSqlSession().update("User.resetPassword", user);
 	}
 
