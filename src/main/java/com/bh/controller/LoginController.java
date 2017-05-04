@@ -47,7 +47,7 @@ public class LoginController {
 			@Override
 			protected void doSomething() throws Exception {
 				userService.phoneCodeFrequency(phone);
-				map.put("authCode",messageComponent.aliyuMessageCode(phone, "SMS_53895051"));
+				messageComponent.aliyuMessageCode(phone, "SMS_53895051");
 			}
 			
 		};
@@ -88,11 +88,24 @@ public class LoginController {
 				 //String authCode=userService.phoneAuthCode(phone, "_RESTPWD_MSGCODE", "【北航传媒】提醒你的验证码为：");
 				userService.phoneCodeFrequency(phone);
 				userService.checkUserNotNull(phone);
-				String authCode=messageComponent.aliyuMessageCode(phone,"SMS_53895049");
-				map.put("authCode", authCode);
+				messageComponent.aliyuMessageCode(phone,"SMS_53895049");
+			
 			}
 		};
 		return  template.operate();
+	}
+	@RequestMapping("validateResetPwdauthCode")
+	@ResponseBody
+	public Map<String,Object> validateResetPwdauthCode(final @RequestParam(value="phone")String phone,final @RequestParam(value="authCode")  String authCode){
+		OperateTemplate template=new HttpTemplate() {
+			
+			@Override
+			protected void doSomething() throws Exception {
+				boolean result=messageComponent.validateMessageCode(phone, authCode, "SMS_53895049");
+				map.put("data", result);
+			}
+		};
+		return template.operate();
 	}
 //	@RequestMapping("verifyPhoneCode")
 //	@ResponseBody
