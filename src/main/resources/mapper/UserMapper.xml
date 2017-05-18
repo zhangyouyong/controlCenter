@@ -3,7 +3,7 @@
 
 <mapper namespace="User">
 	<select id="userLogin" parameterType="java.util.Map"  resultType="com.bh.model.BaseUserModel">
-		select bu.userid userId,bu.login_name loginName,bu.status  from base_user bu where bu.login_name=#{loginName} and bu.password=#{password}
+		select bu.userid userId,bu.login_name loginName,bu.status,user_parent parentId  from base_user bu where bu.login_name=#{loginName} and bu.password=#{password}
 	</select>
 	<select id="checkUserName" parameterType="java.lang.String"  resultType="java.lang.Integer">
 		select count(1)  from base_user bu where bu.login_name=#{_name}
@@ -84,5 +84,21 @@
 	<!-- 判断用户名是否存在 -->
 	<select id="checkSubUserName" parameterType="String" resultType="integer">
 		select count(1) from base_user bu where bu.login_name=#{_longName}
+	</select>
+	<!-- 判断是否是父用户 -->
+	<select id="isParentUser" parameterType="integer" resultType="integer">
+		select bu.user_parent from base_user bu where bu.userid=#{userId}
+	</select>
+	<select id="accountInfoByUserId" parameterType="Long" resultType="map">
+		SELECT
+			uai.user_id userId,
+			uai.card_number cardNumber,
+			uai.bank_address AS bankAddress,
+			uai.bank_account_name AS bankAccountName,
+			uai.deposit_bank as depositBank
+		FROM
+			user_account_info uai
+		WHERE
+			uai.user_id = #{userId}
 	</select>
 </mapper>

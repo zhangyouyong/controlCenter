@@ -6,7 +6,13 @@ public class BaseUserModel {
 	private int status;
 	private String tokenCode;
 	private String passWord;
-	
+	private String parentId;
+	public String getParentId() {
+		return parentId;
+	}
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
 	public String getPassWord() {
 		return passWord;
 	}

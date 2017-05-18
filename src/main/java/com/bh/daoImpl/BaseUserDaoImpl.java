@@ -111,6 +111,12 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 		modify(user);
 	}
 
+	@Override
+	public Integer isParentUser(Integer userId) {
+		Integer parent=(Integer)getSqlSession().selectOne("User.isParentUser", userId);
+		return parent;
+	}
+
 	
 
 }

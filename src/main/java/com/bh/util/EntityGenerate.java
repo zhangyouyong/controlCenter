@@ -415,9 +415,9 @@ public class EntityGenerate   {
 		path = path.substring(0, path.indexOf("Consoles"));
 		path = path + "Consoles/src/main/java/";
 		egt.createEntity(path,entityPackage);
-		egt.createDao(path, daoPackage);
+		/*egt.createDao(path, daoPackage);
 		egt.createDaoImpl(path, daoImplPackage);
 		egt.createService(path, servicePackage);
-		egt.createServiceImpl(path, serviceImplPackage);
+		egt.createServiceImpl(path, serviceImplPackage);*/
 	}
 }

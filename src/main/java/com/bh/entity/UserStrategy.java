@@ -26,9 +26,9 @@ public class UserStrategy extends AbstractEntity implements Cloneable{
 	/** strategy_describe VARCHAR */
 	@Entity(columnName = "strategy_describe")
 	protected java.lang.String strategyDescribe;//
-	/** meun_id BIGINT */
-	@Entity(columnName = "meun_id")
-	protected java.lang.Long meunId;//
+	/** menu_id BIGINT */
+	@Entity(columnName = "menu_id")
+	protected java.lang.Long menuId;//
 	/** created_time DATETIME */
 	@Entity(columnName = "created_time")
 	protected java.util.Date createdTime;//
@@ -102,21 +102,21 @@ public class UserStrategy extends AbstractEntity implements Cloneable{
 		this.strategyDescribe = strategyDescribe;
 	}
 	/**
-	 * @Title: meun_id
+	 * @Title: menu_id
 	 * @Description: 
 	 * @return java.lang.Long
 	 */
-	public java.lang.Long getMeunId() {
-		return meunId;
+	public java.lang.Long getMenuId() {
+		return menuId;
 	}
 
 	/**
-	 * @Title: meun_id
+	 * @Title: menu_id
 	 * @Description: 
 	 * @param java.lang.Long
 	 */
-	public void setMeunId(java.lang.Long meunId) {
-		this.meunId = meunId;
+	public void setMenuId(java.lang.Long menuId) {
+		this.menuId = menuId;
 	}
 	/**
 	 * @Title: created_time

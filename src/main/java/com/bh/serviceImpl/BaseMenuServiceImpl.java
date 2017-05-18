@@ -1,5 +1,6 @@
 package com.bh.serviceImpl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,15 @@ public class BaseMenuServiceImpl  implements BaseMenuService{
 
 	@Override
 	public Map<String, TreeMenu> getTreeMenu(Integer userId) {
-		// TODO Auto-generated method stub
-		return baseMenuDao.getTreeMenu(userId);
+		Integer parent=baseUserDao.isParentUser(userId);
+		Map<String,Object> parameter=new HashMap<String,Object>();
+		Integer flag=0;
+		if(parent>0){
+			flag=1;
+		}
+		parameter.put("userId", userId);
+		parameter.put("flag", flag);
+		return baseMenuDao.getTreeMenu(parameter);
 	}
 
 }

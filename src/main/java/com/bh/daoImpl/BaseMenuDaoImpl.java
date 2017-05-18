@@ -15,8 +15,8 @@ import com.shuyin.framework.database.dao.BaseDao;
 public class BaseMenuDaoImpl extends BaseDao<BaseMenu> implements BaseMenuDao{
 	@Override
 	@SuppressWarnings("unchecked")
-	public Map<String, TreeMenu> getTreeMenu(Integer userId) {
-		List<BaseMenu> list = getSqlSession().selectList("menu.getList", userId);
+	public Map<String, TreeMenu> getTreeMenu(Map<String,Object> parameter) {
+		List<BaseMenu> list = getSqlSession().selectList("menu.getList", parameter);
 		Map<String,TreeMenu> trMap = new TreeMap<String, TreeMenu>();
 		for (BaseMenu menu : list) {
 			String[] tree = menu.getNode().split("-");

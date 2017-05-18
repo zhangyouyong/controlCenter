@@ -225,7 +225,7 @@ public class AccountManageController {
 	 * @param accountInfo
 	 * @return
 	 */
-	@RequestMapping(value="addUserBankInfo", method = RequestMethod.POST)
+	@RequestMapping(value="addBankAccountInfo", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> addUserBankInfo(final UserAccountInfo accountInfo){
 		OperateTemplate template=new HttpTemplate() {
@@ -236,4 +236,16 @@ public class AccountManageController {
 		};
 		return template.operate();
 	}
+	@RequestMapping(value="bankAccountInfo" ,method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object>  bankAccountInfo(final Long userId){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				map.put("data",userAccountInfoService.banckAccountInfo(userId));
+			}
+		};
+		return template.operate();
+	}
+	
 }

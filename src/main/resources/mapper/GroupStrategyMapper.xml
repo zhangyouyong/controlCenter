@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GroupStrategy">
+	<insert id="strategyForGroup" parameterType="com.bh.model.GroupStrategyModel">
+		insert into group_strategy (group_id,menu_id,created_time) values 
+		<foreach collection="menusId" item="menuId" separator="," >
+			(#{groupId},#{menuId},now())
+		</foreach>
+	</insert>
+	<delete id="removeGroupStrategy" parameterType="com.bh.model.GroupStrategyModel">
+		delete from group_strategy where menu_id in
+		<foreach collection="menusId" item="menuId" open="(" separator="," close=")">
+			#{menuId}
+		</foreach>
+		and group_id=#{groupId}
+	</delete>
+	<select id="groupUnSelectStrategy" parameterType="long" resultType="map">
+		SELECT
+			bm.menuid AS menuId,
+			bm.`name`
+		FROM
+			base_menu bm
+		WHERE
+			NOT EXISTS (
+				SELECT
+					1
+				FROM
+					group_strategy gs
+				WHERE
+					gs.menu_id = bm.menuid
+				AND group_id = #{groupId}
+			)
+	</select>
+	<select id="groupSelectedStrategy" parameterType="long" resultType="map">
+		select menuid as menuId,bm.`name` from group_strategy gs,base_menu bm where bm.menuid=gs.group_id and gs.group_id=#{groupId}
+	</select>
+</mapper>

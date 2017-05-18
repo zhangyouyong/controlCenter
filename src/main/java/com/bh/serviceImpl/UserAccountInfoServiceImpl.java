@@ -1,5 +1,7 @@
 package com.bh.serviceImpl;
 
+import java.util.Map;
+
 import com.bh.dao.UserAccountInfoDao;
 import com.bh.entity.UserAccountInfo;
 import com.bh.service.UserAccountInfoService;
@@ -17,6 +19,11 @@ public class UserAccountInfoServiceImpl  implements UserAccountInfoService{
 	@Override
 	public void addUserBankInfo(UserAccountInfo userAccountInfo) {
 		userAccountInfoDao.addUserBankInfo(userAccountInfo);
+	}
+
+	@Override
+	public Map<String, Object> banckAccountInfo(Long userId) {
+		return userAccountInfoDao.banckAccountInfo(userId);
 	}
 
 }

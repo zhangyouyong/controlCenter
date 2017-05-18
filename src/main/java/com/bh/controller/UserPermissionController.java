@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bh.entity.BaseUser;
 import com.bh.entity.UserGroup;
+import com.bh.model.GroupStrategyModel;
 import com.bh.model.UserGropRelationModel;
 import com.bh.model.UserRelevanceGroupModel;
 import com.bh.model.UserStrategyModel;
 import com.bh.service.BaseUserService;
+import com.bh.service.GroupStrategyService;
 import com.bh.service.UserGroupRelationService;
 import com.bh.service.UserGroupService;
 import com.bh.service.UserPermissionServcie;
@@ -45,6 +48,10 @@ public class UserPermissionController {
 	@Autowired
 	@Qualifier("UserStrategyService")
 	UserStrategyService userStrategyService;
+	
+	@Autowired
+	@Qualifier("GroupStrategyService")
+	GroupStrategyService groupStrategyService;
 	/**
 	 * 添加组
 	 * @param groupName
@@ -284,6 +291,11 @@ public class UserPermissionController {
 		};
 		return template.operate();
 	}
+	/**
+	 * 策略关联到用户
+	 * @param strategys
+	 * @return
+	 */
 	@RequestMapping("strategyForUser")
 	@ResponseBody
 	public Map<String,Object> strategyForUser(@RequestBody final UserStrategyModel strategys){
@@ -291,6 +303,84 @@ public class UserPermissionController {
 			@Override
 			protected void doSomething() throws Exception {
 				userStrategyService.strategyForUser(strategys);
+			}
+		};
+		return template.operate();
+	}
+	/**
+	 * 删除用户策略
+	 * @param strategys
+	 * @return
+	 */
+	@RequestMapping("removeUserStrategy")
+	@ResponseBody
+	public Map<String,Object> removeUserStrategy(@RequestBody final UserStrategyModel strategys){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				userStrategyService.removeUserStrategy(strategys);
+			}
+		};
+		return template.operate();
+	}
+	/**
+	 * 用户策略绑定列表
+	 * @return
+	 */
+	@RequestMapping("userStrategyList")
+	@ResponseBody
+	public Map<String,Object> userStrategyList(@RequestParam(value="userId")final Long userId){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				map.put("data",userStrategyService.userStrategyList(userId));
+			}
+		};
+		return template.operate();
+	}
+	/**
+	 * 策略关联到用户组
+	 * @param groupStrategy
+	 * @return
+	 */
+	@RequestMapping("strategyForGroup")
+	@ResponseBody
+	public Map<String,Object> strategyForGroup(@RequestBody final GroupStrategyModel groupStrategy){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				groupStrategyService.groupForStrategy(groupStrategy);
+			}
+		};
+		return template.operate();
+	}
+	/**
+	 * 删除用户组策略关联
+	 * @param groupStrategy
+	 * @return
+	 */
+	@RequestMapping("removeStrategyGroup")
+	@ResponseBody
+	public Map<String,Object> removeStrategyGroup(@RequestBody final GroupStrategyModel groupStrategy){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				groupStrategyService.removeGroupStrategy(groupStrategy);
+			}
+		};
+		return template.operate();
+	}
+	/**
+	 * 组策略绑定列表
+	 * @return
+	 */
+	@RequestMapping("groupStrategyList")
+	@ResponseBody
+	public Map<String,Object> groupStrategyList(@RequestParam(value="groupId")final Long groupId){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				map.put("data",groupStrategyService.groupStrategyList(groupId));
 			}
 		};
 		return template.operate();

@@ -93,6 +93,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 		propertys.put("password", MD5.MD5Encode(pwd));
 		BaseUserModel baserUser = baseUserDao.login(propertys);
 		result.put("userId", baserUser.getUserId());
+		result.put("parentId", baserUser.getParentId());
 		result.put("tokenCode", loginToken(baserUser));
 		return result;
 	}
@@ -195,12 +196,16 @@ public class BaseUserServiceImpl implements BaseUserService {
 	public Map<String, Object> userInfoByToken(String tokenCode)
 			throws BHException {
 		boolean exists= redisClientTemplate.exists(tokenCode);
+		
 		if(!exists){
 			throw new BHException("tokenCode失效或者不存在!",BHExceptionType.TOKEN_EXIST);
 		}
 		Map<String,String> reidsObject= redisClientTemplate.hgetAll(tokenCode);
 		Integer userId=Integer.parseInt(reidsObject.get("userId"));
-		
+		Integer parentId=baseUserDao.isParentUser(userId);
+		if(parentId>0){
+			userId=parentId;
+		}
 		return baseUserDao.userInfoById(userId);
 	}
 	@Override

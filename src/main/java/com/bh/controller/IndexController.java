@@ -31,14 +31,12 @@ public class IndexController extends CommonController {
 	 */
 	@RequestMapping(value="/showMenu",produces ="text/html;charset=UTF-8")
 	@ResponseBody
-	public Object showMenu(final HttpServletRequest request) throws Exception {
+	public Object showMenu(final Integer userId) throws Exception {
 		OperateTemplate templete = new HttpTemplate() {
 			protected void doSomething() throws Exception {
-				Integer userId = 1;
 				json.put("list", menuService.getTreeMenu(userId));
 			}
 		};
-		System.out.println(templete.operateJson().toString());
 		return templete.operateJson().toString();
 	}
 }

@@ -32,4 +32,6 @@ public interface BaseUserDao{
 	Map<String,Object> accountUserInfoById(Long userId);
 	
 	void updateBaseUser(BaseUser user);//更新用户信息
+	
+	Integer isParentUser(Integer userId);//
 }

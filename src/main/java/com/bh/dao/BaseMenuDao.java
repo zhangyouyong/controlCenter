@@ -6,5 +6,5 @@ import com.bh.model.TreeMenu;
 
 
 public interface BaseMenuDao{
-	Map<String, TreeMenu> getTreeMenu(Integer userId);
+	Map<String, TreeMenu> getTreeMenu(Map<String,Object> parameter);
 }
