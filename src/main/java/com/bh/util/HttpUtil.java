@@ -196,7 +196,6 @@ public class HttpUtil {
         conn.setDoOutput(true);// 是否输入参数
         conn.setDoInput(true);
         conn.setUseCaches(false);
-
         byte[] b = params.toString().getBytes(encode);
         OutputStream os = conn.getOutputStream();
         os.write(b);// 输入参数
@@ -209,6 +208,7 @@ public class HttpUtil {
         conn.disconnect();
         return str;
     }
+
     /**
      * 发送post请求
      * 
@@ -259,7 +259,47 @@ public class HttpUtil {
         conn.disconnect();
         return str;
     }
+    /**
+     * 发送post请求
+     * 
+     * @param requestUrl
+     *            请求URL地址
+     * @param header    
+     * 			  请求头      
+     * @param params
+     *           String
+     * @param encode
+     *            请求参数及页面的编码
+     * @return 返回页面返回的html
+     * @throws Exception
+     */
+    public static String sendPostRequest(String requestUrl,Map<String,String> header, String paramStr, String encode) throws Exception {
+        URL url = new URL(requestUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod(METHOD_POST);// 提交模式
+        Iterator<Entry<String, String>> it = header.entrySet().iterator();
+        while(it.hasNext()){
+        	Entry<String, String> entry = it.next();
+        	conn.setRequestProperty(entry.getKey(), entry.getValue());
+        }
+        conn.setConnectTimeout(50000);// 连接超时 单位毫秒
+        conn.setReadTimeout(50000);// 读取超时 单位毫秒
+        conn.setDoOutput(true);// 是否输入参数
+        conn.setDoInput(true);
+        conn.setUseCaches(false);
 
+        byte[] b = paramStr.toString().getBytes(encode);
+        OutputStream os = conn.getOutputStream();
+        os.write(b);// 输入参数
+        os.flush();
+        os.close();
+
+        InputStream is = conn.getInputStream();
+        String str = inputStreamToString(is, encode);
+        is.close();
+        conn.disconnect();
+        return str;
+    }
     /**
      * 发送post请求
      * 

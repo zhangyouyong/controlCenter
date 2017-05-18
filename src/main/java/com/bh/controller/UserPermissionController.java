@@ -13,10 +13,12 @@ import com.bh.entity.BaseUser;
 import com.bh.entity.UserGroup;
 import com.bh.model.UserGropRelationModel;
 import com.bh.model.UserRelevanceGroupModel;
+import com.bh.model.UserStrategyModel;
 import com.bh.service.BaseUserService;
 import com.bh.service.UserGroupRelationService;
 import com.bh.service.UserGroupService;
 import com.bh.service.UserPermissionServcie;
+import com.bh.service.UserStrategyService;
 import com.shuyin.framework.controller.HttpTemplate;
 import com.shuyin.framework.controller.OperateTemplate;
 import com.shuyin.framework.mybatis.Page;
@@ -39,6 +41,10 @@ public class UserPermissionController {
 	@Autowired
 	@Qualifier("BaseUserService")
 	BaseUserService baseUserService;
+	
+	@Autowired
+	@Qualifier("UserStrategyService")
+	UserStrategyService userStrategyService;
 	/**
 	 * 添加组
 	 * @param groupName
@@ -274,6 +280,17 @@ public class UserPermissionController {
 			@Override
 			protected void doSomething() throws Exception {
 				map.put("data",baseUserService.accountUserInfoById(userId));
+			}
+		};
+		return template.operate();
+	}
+	@RequestMapping("strategyForUser")
+	@ResponseBody
+	public Map<String,Object> strategyForUser(@RequestBody final UserStrategyModel strategys){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				userStrategyService.strategyForUser(strategys);
 			}
 		};
 		return template.operate();

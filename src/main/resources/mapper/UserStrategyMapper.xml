@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserStrategy">
+	<insert id="strategyForUser" parameterType="com.bh.model.UserStrategyModel">
+		insert into user_strategy (user_id,meun_id,created_time) values 
+		<foreach collection="menusId" item="menuId" separator="," >
+			(#{userId},#{menuId},now())
+		</foreach>
+	</insert>
+</mapper>

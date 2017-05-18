@@ -46,7 +46,7 @@ public class LoginController {
 			
 			@Override
 			protected void doSomething() throws Exception {
-				userService.phoneCodeFrequency(phone);
+		//		userService.phoneCodeFrequency(phone);
 				messageComponent.aliyuMessageCode(phone, "SMS_53895051");
 			}
 			
@@ -86,7 +86,7 @@ public class LoginController {
 			@Override
 			protected void doSomething() throws Exception {
 				 //String authCode=userService.phoneAuthCode(phone, "_RESTPWD_MSGCODE", "【北航传媒】提醒你的验证码为：");
-				userService.phoneCodeFrequency(phone);
+			//	userService.phoneCodeFrequency(phone);
 				userService.checkUserNotNull(phone);
 				messageComponent.aliyuMessageCode(phone,"SMS_53895049");
 			

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,12 +20,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.bh.entity.Authentification;
 import com.bh.entity.BaseUser;
 import com.bh.entity.SysFile;
+import com.bh.entity.UserAccountInfo;
 import com.bh.service.AuthentificationService;
 import com.bh.service.BaseUserService;
 import com.bh.service.FileManageService;
 import com.bh.service.SysDictionaryService;
 import com.bh.service.SysFileService;
-import com.shuyin.framework.component.MessageComponent;
+import com.bh.service.UserAccountInfoService;
 import com.shuyin.framework.controller.HttpTemplate;
 import com.shuyin.framework.controller.OperateTemplate;
 import com.shuyin.framework.exception.BHException;
@@ -51,6 +53,10 @@ public class AccountManageController {
 	@Autowired
 	@Qualifier("BaseUserService")
 	BaseUserService baseUserService;
+	
+	@Autowired
+	@Qualifier("UserAccountInfoService") 
+	UserAccountInfoService userAccountInfoService;
 
 	/**
 	 * 企业认证文件上传
@@ -177,6 +183,55 @@ public class AccountManageController {
 			@Override
 			protected void doSomething() throws Exception {
 				baseUserService.updateUser(user);
+			}
+		};
+		return template.operate();
+	}
+	/**
+	 * 应用账号关联
+	 * @return
+	 */
+	@RequestMapping("applicationAccount")
+	@ResponseBody
+	public Map<String,Object> applicationAccount(@RequestParam("loginUserId")final Long loginUserId,@RequestParam("loginName")final String loginName,@RequestParam("pwd")final String pwd,@RequestParam("application")final Long application){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				authentificationService.applicationAccount(loginUserId, loginName, pwd, application);
+			}
+		};
+		return template.operate();
+	} 
+	/**
+	 * 根据用户id查询引用账号绑定信息
+	 * @param loginUserId
+	 * @return
+	 */
+	@RequestMapping("applicationAccountBind")
+	@ResponseBody
+	public Map<String,Object> applicationAccountById(@RequestParam(""
+			+ ""
+			+ "")final Long loginUserId){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				map.put("data",authentificationService.applicationAccountById(loginUserId));
+			}
+		};
+		return template.operate();
+	}
+	/**
+	 * 添加银行信息
+	 * @param accountInfo
+	 * @return
+	 */
+	@RequestMapping(value="addUserBankInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> addUserBankInfo(final UserAccountInfo accountInfo){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				userAccountInfoService.addUserBankInfo(accountInfo);
 			}
 		};
 		return template.operate();
