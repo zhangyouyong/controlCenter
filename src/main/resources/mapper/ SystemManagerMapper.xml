@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SystemManager">
+	<sql id="customerListByPageBody">
+		SELECT
+			bu.userid  userId,
+			bu.login_name loginName,
+			bu.phone,
+			bu.email,
+			bu.`status`,
+			bu.credit_limit,
+			DATE_FORMAT(bu.create_date,'%Y-%m-%d') createDate 
+		FROM
+			base_user bu
+		WHERE
+			bu.user_parent = 0
+			<if test="status!=null">
+				and bu.status=#{status}
+			</if>
+			<if test="loginName!=null">
+				bu.login_name=#{loginName}
+			</if>
+	</sql>
+	<select id="customerListByPage" resultType="map" parameterType="map">
+		<include refid="customerListByPageBody"></include> limit #{startRow},#{endRow}
+	</select>
+	<select id="customerListByPage.count" parameterType="map" resultType="java.lang.Integer">
+		 select count(1) from ( (<include refid="customerListByPageBody"></include>) as A)  
+	</select>
+	<update id="setUserStatus" parameterType="map">
+		UPDATE base_user set `status`=#{status} where userid=#{userId}
+	</update>
+	<update id="setUserCreditLimit" parameterType="map">
+		UPDATE base_user set `credit_limit`=#{quota} where userid=#{userId}
+	</update>
+</mapper>

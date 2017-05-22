@@ -33,5 +33,6 @@ public interface BaseUserDao{
 	
 	void updateBaseUser(BaseUser user);//更新用户信息
 	
-	Integer isParentUser(Integer userId);//
+	Integer isParentUser(Integer userId);//获取父用户id
+	
 }

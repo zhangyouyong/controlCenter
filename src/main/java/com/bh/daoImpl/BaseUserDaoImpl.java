@@ -46,7 +46,7 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 			throw new BHException("用户名或密码不存在!",BHExceptionType.USER_NULL);
 		}
 		if(baserUser.getStatus()==0){
-			throw new BHException("此用户已被禁用",BHExceptionType.USER_UNUSE);
+			throw new BHException("此用户已被冻结!",BHExceptionType.USER_UNUSE);
 		}
 		return baserUser;
 	}

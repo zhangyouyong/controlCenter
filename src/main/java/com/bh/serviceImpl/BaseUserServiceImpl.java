@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bh.dao.BaseUserDao;
+import com.bh.dao.UserStrategyDao;
 import com.bh.entity.BaseUser;
 import com.bh.model.BaseUserModel;
 import com.bh.service.BaseUserService;
@@ -38,6 +40,10 @@ public class BaseUserServiceImpl implements BaseUserService {
 	@Autowired
 	@Qualifier("MessageComponent")
 	MessageComponent messageComponent;
+	
+	@Autowired
+	@Qualifier("UserStrategyDao")
+	UserStrategyDao userStrategyDao;
 	
 	@Override
 	public String getPhoneCode(String phone) throws BHException {
@@ -68,6 +74,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 		return authCode;
 		
 	}
+	@Transactional
 	@Override
 	public Map<String,Object> register(String name, String pwd, String autoCode) throws BHException {
 		boolean vlidate=messageComponent.validateMessageCode(name, autoCode,"SMS_53895051");
@@ -77,6 +84,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 		Map<String,Object> result=new HashMap<String,Object>();
 		BaseUserModel baseUser=new BaseUserModel();
 		Long userId=baseUserDao.register(name, pwd);
+		userStrategyDao.userStrategyPack(userId);
 		baseUser.setUserId(userId);
 		baseUser.setLoginName(name);
 		result.put("userId", userId);

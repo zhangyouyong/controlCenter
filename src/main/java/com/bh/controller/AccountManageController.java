@@ -221,7 +221,7 @@ public class AccountManageController {
 		return template.operate();
 	}
 	/**
-	 * 添加银行信息
+	 * 添加开户行信息
 	 * @param accountInfo
 	 * @return
 	 */
@@ -236,6 +236,11 @@ public class AccountManageController {
 		};
 		return template.operate();
 	}
+	/**
+	 * 查看开户行信息
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(value="bankAccountInfo" ,method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object>  bankAccountInfo(final Long userId){

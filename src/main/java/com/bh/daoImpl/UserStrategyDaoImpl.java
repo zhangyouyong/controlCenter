@@ -34,5 +34,10 @@ public class UserStrategyDaoImpl extends BaseDao<UserStrategy> implements UserSt
 		return result;
 	}
 
+	@Override
+	public void userStrategyPack(Long userId) {
+		getSqlSession().insert("UserStrategy.userStrategyPack", userId);
+	}
+
 
 }

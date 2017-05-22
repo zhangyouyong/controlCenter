@@ -26,12 +26,12 @@ public class BaseUser extends AbstractEntity implements Cloneable{
 	/** job_number VARCHAR */
 	@Entity(columnName = "job_number")
 	protected java.lang.String jobNumber;//工号（暂定6位）
-	/** display_name VARCHAR */
-	@Entity(columnName = "display_name")
-	protected java.lang.String displayName;//显示名
 	/** login_name VARCHAR */
 	@Entity(columnName = "login_name")
 	protected java.lang.String loginName;//用户登录系统的账户
+	/** display_name VARCHAR */
+	@Entity(columnName = "display_name")
+	protected java.lang.String displayName;//显示名
 	/** phone VARCHAR */
 	@Entity(columnName = "phone")
 	protected java.lang.String phone;//手机号码
@@ -50,6 +50,9 @@ public class BaseUser extends AbstractEntity implements Cloneable{
 	/** user_source INT */
 	@Entity(columnName = "user_source")
 	protected java.lang.Integer userSource;//1 终端用户 2系统用户 3 合作方用户
+	/** credit_limit DOUBLE */
+	@Entity(columnName = "credit_limit")
+	protected java.lang.Double creditLimit;//默认值
 	/** type INT */
 	@Entity(columnName = "type")
 	protected java.lang.Integer type;//
@@ -174,23 +177,6 @@ public class BaseUser extends AbstractEntity implements Cloneable{
 		this.jobNumber = jobNumber;
 	}
 	/**
-	 * @Title: display_name
-	 * @Description: 显示名
-	 * @return java.lang.String
-	 */
-	public java.lang.String getDisplayName() {
-		return displayName;
-	}
-
-	/**
-	 * @Title: display_name
-	 * @Description: 显示名
-	 * @param java.lang.String
-	 */
-	public void setDisplayName(java.lang.String displayName) {
-		this.displayName = displayName;
-	}
-	/**
 	 * @Title: login_name
 	 * @Description: 用户登录系统的账户
 	 * @return java.lang.String
@@ -206,6 +192,23 @@ public class BaseUser extends AbstractEntity implements Cloneable{
 	 */
 	public void setLoginName(java.lang.String loginName) {
 		this.loginName = loginName;
+	}
+	/**
+	 * @Title: display_name
+	 * @Description: 显示名
+	 * @return java.lang.String
+	 */
+	public java.lang.String getDisplayName() {
+		return displayName;
+	}
+
+	/**
+	 * @Title: display_name
+	 * @Description: 显示名
+	 * @param java.lang.String
+	 */
+	public void setDisplayName(java.lang.String displayName) {
+		this.displayName = displayName;
 	}
 	/**
 	 * @Title: phone
@@ -308,6 +311,23 @@ public class BaseUser extends AbstractEntity implements Cloneable{
 	 */
 	public void setUserSource(java.lang.Integer userSource) {
 		this.userSource = userSource;
+	}
+	/**
+	 * @Title: credit_limit
+	 * @Description: 默认值
+	 * @return java.lang.Double
+	 */
+	public java.lang.Double getCreditLimit() {
+		return creditLimit;
+	}
+
+	/**
+	 * @Title: credit_limit
+	 * @Description: 默认值
+	 * @param java.lang.Double
+	 */
+	public void setCreditLimit(java.lang.Double creditLimit) {
+		this.creditLimit = creditLimit;
 	}
 	/**
 	 * @Title: type
