@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.bh.dao.BaseUserDao;
 import com.bh.entity.BaseUser;
 import com.bh.service.UserPermissionServcie;
+import com.bh.util.security.MD5;
 import com.shuyin.framework.exception.BHException;
 import com.shuyin.framework.exception.BHExceptionType;
 import com.shuyin.framework.mybatis.Page;
@@ -27,7 +28,9 @@ public class UserPermissionServcieImpl implements UserPermissionServcie {
 		if(user.getUserParent()==null){
 			throw new BHException("父用户id不能为空!", BHExceptionType.COMMIT_NULL);
 		}
+		String newPwd=MD5.MD5Encode(user.getPassword());
 		user.setStatus(1);
+		user.setPassword(newPwd);
 		user.setUserSource(1);
 		user.setCreateDate(new Date());
 		user.setUpdateDate(new Date());
