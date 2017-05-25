@@ -17,13 +17,18 @@ public class UserAccountInfoServiceImpl  implements UserAccountInfoService{
 	private UserAccountInfoDao userAccountInfoDao;
 
 	@Override
-	public void addUserBankInfo(UserAccountInfo userAccountInfo) {
-		userAccountInfoDao.addUserBankInfo(userAccountInfo);
+	public Long addUserBankInfo(UserAccountInfo userAccountInfo) {
+		return userAccountInfoDao.addUserBankInfo(userAccountInfo);
 	}
 
 	@Override
 	public Map<String, Object> banckAccountInfo(Long userId) {
 		return userAccountInfoDao.banckAccountInfo(userId);
+	}
+
+	@Override
+	public void updateAccount(UserAccountInfo userAccountInfo) {
+		userAccountInfoDao.updatebanckAccount(userAccountInfo);
 	}
 
 }

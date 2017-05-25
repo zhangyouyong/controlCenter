@@ -91,11 +91,12 @@
 	</select>
 	<select id="accountInfoByUserId" parameterType="Long" resultType="map">
 		SELECT
+			uai.id accountId, 
 			uai.user_id userId,
 			uai.card_number cardNumber,
-			uai.bank_address AS bankAddress,
-			uai.bank_account_name AS bankAccountName,
-			uai.deposit_bank as depositBank
+			uai.bank_address  bankAddress,
+			uai.bank_account_name  bankAccountName,
+			uai.deposit_bank  depositBank
 		FROM
 			user_account_info uai
 		WHERE

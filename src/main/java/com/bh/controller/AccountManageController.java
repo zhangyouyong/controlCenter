@@ -21,12 +21,14 @@ import com.bh.entity.Authentification;
 import com.bh.entity.BaseUser;
 import com.bh.entity.SysFile;
 import com.bh.entity.UserAccountInfo;
+import com.bh.model.UserAccountInfoModel;
 import com.bh.service.AuthentificationService;
 import com.bh.service.BaseUserService;
 import com.bh.service.FileManageService;
 import com.bh.service.SysDictionaryService;
 import com.bh.service.SysFileService;
 import com.bh.service.UserAccountInfoService;
+import com.bh.util.StringUtils;
 import com.shuyin.framework.controller.HttpTemplate;
 import com.shuyin.framework.controller.OperateTemplate;
 import com.shuyin.framework.exception.BHException;
@@ -34,13 +36,7 @@ import com.shuyin.framework.exception.BHExceptionType;
 @Controller
 @RequestMapping("Account")
 public class AccountManageController {
-	@Autowired
-	@Qualifier("FileManageService")
-	FileManageService fileManageService;
 	
-	@Autowired
-	@Qualifier("SysFileService")
-	SysFileService sysFileService;
 	
 	@Autowired
 	@Qualifier("AuthentificationService")
@@ -58,53 +54,7 @@ public class AccountManageController {
 	@Qualifier("UserAccountInfoService") 
 	UserAccountInfoService userAccountInfoService;
 
-	/**
-	 * 企业认证文件上传
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("fileUpload")
-	@ResponseBody
-	public Map<String,Object> fileUpload(final HttpServletRequest request){
-		OperateTemplate template=new HttpTemplate() {
-			@Override
-			protected void doSomething() throws Exception {
-				Map<String,Object> result=new HashMap<String,Object>();
-				// 转型为MultipartHttpRequest：
-			    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			    MultipartFile file = multipartRequest.getFile("image");
-			    Long fileSize=file.getSize(); //文件大小
-			    String fileName=file.getOriginalFilename();
-			    String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();//文件扩展名
-			    String ProjectName=request.getContextPath();//项目名称
-			    String fileUrl=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+ProjectName;
-			    
-			    if(fileSize>1024*1024*2){
-			    	throw new BHException("上传图片不能大于2M！",BHExceptionType.FILE_SIZE_ERROR);
-			    }
-			    if(!("jpg,png".contains(fileExt))){
-			    	throw new BHException("只能上传jpg和png文件！",BHExceptionType.FILE_TYPE_ERROR);
-			    }
-			    String saveFileName=fileName.substring(0,fileName.lastIndexOf("."));
-			    String path=request.getSession().getServletContext().getRealPath("/WEB-INF/image");
-			    File savePath=new File(path);
-			    if(!savePath.exists()){
-			    	savePath.mkdir();
-			    }
-			    
-			    fileManageService.saveFileFromInputStream(file.getInputStream(), path, fileName);
-			    SysFile sysFile=new SysFile();
-			    sysFile.setCreadtime(new Date());
-			    sysFile.setFileDescribe("用户营业执照图片");
-			    sysFile.setFileName(saveFileName);
-			    sysFile.setFileUrl(fileUrl+"/image/"+fileName);
-			    sysFile.setFileType("image");
-			    result.put("fileId",sysFileService.addSysFile(sysFile));
-			    map.putAll(result);
-			}
-		};
-		return template.operate();
-	}
+	
 //	@RequestMapping("test")
 //	public String index(final HttpServletRequest request){
 //		return "index";
@@ -231,7 +181,9 @@ public class AccountManageController {
 		OperateTemplate template=new HttpTemplate() {
 			@Override
 			protected void doSomething() throws Exception {
-				userAccountInfoService.addUserBankInfo(accountInfo);
+				Map<String,Object> result=new HashMap<String,Object>();
+				result.put("accountId", userAccountInfoService.addUserBankInfo(accountInfo));
+				map.put("data", result);
 			}
 		};
 		return template.operate();
@@ -248,6 +200,23 @@ public class AccountManageController {
 			@Override
 			protected void doSomething() throws Exception {
 				map.put("data",userAccountInfoService.banckAccountInfo(userId));
+			}
+		};
+		return template.operate();
+	}
+	/**修改开户行信息**/
+	@RequestMapping(value="updatebankAccount",method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object>  updatebankAccount(final UserAccountInfoModel model){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				UserAccountInfo userAccountInfo=new UserAccountInfo();
+				userAccountInfo.setId(model.getAccountId());
+				userAccountInfo.setBankAccountName(model.getBankAccountName());
+				userAccountInfo.setBankAddress(model.getBankAddress());
+				userAccountInfo.setDepositBank(model.getDepositBank());
+				userAccountInfoService.updateAccount(userAccountInfo);
 			}
 		};
 		return template.operate();

@@ -20,4 +20,9 @@ public class SysFileServiceImpl  implements SysFileService{
 		return sysFileDao.addSysFile(sysFile);
 	}
 
+	@Override
+	public void updateSysFile(Long fileId, String fileUrl) {
+		sysFileDao.updateSysFile(fileId, fileUrl);
+	}
+
 }

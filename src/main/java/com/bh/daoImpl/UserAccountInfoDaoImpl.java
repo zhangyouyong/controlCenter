@@ -13,14 +13,19 @@ import org.springframework.test.context.jdbc.Sql;
 public class UserAccountInfoDaoImpl extends BaseDao<UserAccountInfo> implements UserAccountInfoDao{
 	
 	@Override
-	public void addUserBankInfo(UserAccountInfo userAccountInfo) {
-		create(userAccountInfo);
+	public Long addUserBankInfo(UserAccountInfo userAccountInfo) {
+		return create(userAccountInfo);
 	}
 
 	@Override
 	public Map<String, Object> banckAccountInfo(Long userId) {
 		Map<String,Object> result=(Map<String,Object>)getSqlSession().selectOne("User.accountInfoByUserId", userId);
 		return result;
+	}
+
+	@Override
+	public void updatebanckAccount(UserAccountInfo userAccountInfo) {
+		modify(userAccountInfo);
 	}
 
 
