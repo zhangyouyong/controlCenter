@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -91,6 +93,17 @@ public class FileManageController {
 			    }
 			    result.put("fileUrl",fileUrl);
 			    map.putAll(result);
+			}
+		};
+		return template.operate();
+	}
+	@RequestMapping(value="homeLogoInfo",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> homeLogoInfo(final @RequestParam("fileType") String fileType){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				map.put("data",sysFileService.homeLogoInfo(fileType));
 			}
 		};
 		return template.operate();
