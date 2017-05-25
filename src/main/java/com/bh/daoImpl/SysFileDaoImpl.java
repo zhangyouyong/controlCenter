@@ -1,10 +1,13 @@
 package com.bh.daoImpl;
 
-import com.bh.entity.SysFile;
-import com.bh.dao.SysFileDao;
-import com.shuyin.framework.database.dao.BaseDao;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+
+import com.bh.dao.SysFileDao;
+import com.bh.entity.SysFile;
+import com.shuyin.framework.database.dao.BaseDao;
 
 @Repository("SysFileDao")
 public class SysFileDaoImpl extends BaseDao<SysFile> implements SysFileDao{
@@ -19,6 +22,12 @@ public class SysFileDaoImpl extends BaseDao<SysFile> implements SysFileDao{
 		SysFile sysFile = findOneById(fileId);
 		sysFile.setFileUrl(fileUrl);
 		modify(sysFile);
+	}
+
+	@Override
+	public List homeLogoInfo(String fileType) {
+		List result=getSqlSession().selectList("File.homeLogoInfo");
+		return result;
 	}
 	
 }
