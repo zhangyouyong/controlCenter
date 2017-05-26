@@ -26,7 +26,7 @@ public class SysFileDaoImpl extends BaseDao<SysFile> implements SysFileDao{
 
 	@Override
 	public List homeLogoInfo(String fileType) {
-		List result=getSqlSession().selectList("File.homeLogoInfo");
+		List result=getSqlSession().selectList("File.homeLogoInfo",fileType);
 		return result;
 	}
 	
