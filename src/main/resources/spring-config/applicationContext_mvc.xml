@@ -31,8 +31,9 @@
 	<mvc:interceptors>
 		<!-- <bean class="com.bh.interceptor.TokenInterceptor"/> -->
 		<mvc:interceptor>
+				<mvc:mapping path="/*"/>
 				<mvc:mapping path="/*/*"/>
-				<mvc:exclude-mapping path="/login/login.do"/>
+				<mvc:exclude-mapping path="/login/*"/>
 				<mvc:exclude-mapping path="/Account/userInfo"/>
 				<bean class="com.bh.interceptor.TokenInterceptor"/>
 		</mvc:interceptor>
