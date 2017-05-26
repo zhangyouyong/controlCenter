@@ -59,10 +59,6 @@ public class AccountManageController {
 //	public String index(final HttpServletRequest request){
 //		return "index";
 //	}
-	public static void main(String[] args) {
-		String fileName="QQ图片20170322104029";
-		System.out.println(fileName.substring(0,fileName.lastIndexOf(".")));
-	}
 	/**
 	 * 企业认证
 	 * @param authentification
