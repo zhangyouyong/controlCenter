@@ -22,20 +22,21 @@
 			base_menu bm,
 			user_strategy us,
 			(select ug.cread_by from user_group  ug where ug.id=#{groupId}) pu
-			where pu.cread_by =us.user_id
-		and bm.menuid=us.menu_id
-		and 
-			NOT EXISTS (
-				SELECT
-					1
-				FROM
-					group_strategy gs,
-					user_group ug1
-				WHERE
-					gs.menu_id = bm.menuid
-					and ug1.id=gs.group_id
-				AND ug1.id = #{groupId}
-			)
+			where 
+				pu.cread_by =us.user_id
+			and bm.menuid=us.menu_id
+			and 
+				NOT EXISTS (
+					SELECT
+						1
+					FROM
+						group_strategy gs,
+						user_group ug1
+					WHERE
+						gs.menu_id = bm.menuid
+						and ug1.id=gs.group_id
+					AND ug1.id = #{groupId}
+				)
 	</select>
 	<select id="groupSelectedStrategy" parameterType="long" resultType="map">
 		select menuid as menuId,bm.`name` from group_strategy gs,base_menu bm where bm.menuid=gs.group_id and gs.group_id=#{groupId}
