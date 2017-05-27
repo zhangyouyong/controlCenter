@@ -57,4 +57,9 @@ public class UserGroupServiceImpl  implements UserGroupService{
 		return userGroupDao.groupDetail(groupId);
 	}
 
+	@Override
+	public void editGroup(UserGroup group) {
+		 userGroupDao.editGroup(group);
+	}
+
 }

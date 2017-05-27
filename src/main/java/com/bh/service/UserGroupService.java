@@ -11,4 +11,5 @@ public interface UserGroupService {
 	Map<String, Object> groupInfo(Long userId,String groupName, Page<UserGroup> page) throws BHException;
 	void removeUserGroup(Long groupId) throws BHException;
 	Map<String,Object> groupDetail(Long groupId) throws BHException;
+	void editGroup(UserGroup group);
 }

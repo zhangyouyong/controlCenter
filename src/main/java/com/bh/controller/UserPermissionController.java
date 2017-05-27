@@ -71,6 +71,11 @@ public class UserPermissionController {
 		};
 		return template.operate();
 	}
+	/**
+	 * 组详情
+	 * @param groupId
+	 * @return
+	 */
 	@RequestMapping("groupDatail")
 	@ResponseBody
 	public Map<String,Object> groupDetail(final Long groupId){
@@ -78,6 +83,17 @@ public class UserPermissionController {
 			@Override
 			protected void doSomething() throws Exception {
 				map.put("data",userGroupService.groupDetail(groupId));
+			}
+		};
+		return template.operate();
+	}
+	@RequestMapping("editGroup")
+	@ResponseBody
+	public Map<String,Object> editGroup(final UserGroup group){
+		OperateTemplate template=new HttpTemplate() {
+			@Override
+			protected void doSomething() throws Exception {
+				userGroupService.editGroup(group);
 			}
 		};
 		return template.operate();

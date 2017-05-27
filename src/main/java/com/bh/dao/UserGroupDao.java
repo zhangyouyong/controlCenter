@@ -11,4 +11,5 @@ public interface UserGroupDao{
 	void removeUserGroup(Long groupId);//删除用户组
 	boolean checkGroupName(String groupName,Long loginUserId);//检测组是否重名
 	Map<String, Object> groupDetail(Long groupId);
+	void editGroup(UserGroup group);
 }

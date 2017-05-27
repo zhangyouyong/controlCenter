@@ -57,4 +57,9 @@ public class UserGroupDaoImpl extends BaseDao<UserGroup> implements UserGroupDao
 		return result;
 	}
 
+	@Override
+	public void editGroup(UserGroup group) {
+		modify(group);
+	}
+
 }
