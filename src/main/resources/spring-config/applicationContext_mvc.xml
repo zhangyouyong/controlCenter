@@ -35,6 +35,7 @@
 				<mvc:mapping path="/*/*"/>
 				<mvc:exclude-mapping path="/login/*"/>
 				<mvc:exclude-mapping path="/Account/userInfo"/>
+				<mvc:exclude-mapping path="/image/*"/>
 				<bean class="com.bh.interceptor.TokenInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
