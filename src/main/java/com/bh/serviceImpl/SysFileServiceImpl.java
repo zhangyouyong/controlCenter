@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.bh.dao.SysFileDao;
 import com.bh.entity.SysFile;
 import com.bh.service.SysFileService;
+import com.shuyin.framework.exception.BHException;
 
 @Service(value="SysFileService")
 public class SysFileServiceImpl  implements SysFileService{
@@ -23,7 +24,7 @@ public class SysFileServiceImpl  implements SysFileService{
 	}
 
 	@Override
-	public void updateSysFile(Long fileId, String fileUrl) {
+	public void updateSysFile(Long fileId, String fileUrl) throws BHException{
 		sysFileDao.updateSysFile(fileId, fileUrl);
 	}
 

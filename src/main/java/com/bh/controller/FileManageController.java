@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -42,13 +43,16 @@ public class FileManageController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("fileUpload")
+	@RequestMapping(value="fileUpload",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> fileUpload(final HttpServletRequest request){
 		OperateTemplate template=new HttpTemplate() {
 			@Override
 			protected void doSomething() throws Exception {
-				//System.out.println(request.getContentType());
+				 String contentType = request.getContentType();  //获取Content-Type  
+				 if(!(contentType.toLowerCase().startsWith("multipart/"))) {  
+					 throw new BHException("非multipart/form-data格式!");
+				 }
 				Map<String,Object> result=new HashMap<String,Object>();
 				// 转型为MultipartHttpRequest：
 			    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;

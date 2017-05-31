@@ -1,11 +1,8 @@
 package com.bh.controller;
 
-import java.io.File;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,25 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bh.entity.Authentification;
 import com.bh.entity.BaseUser;
-import com.bh.entity.SysFile;
 import com.bh.entity.UserAccountInfo;
 import com.bh.model.UserAccountInfoModel;
 import com.bh.service.AuthentificationService;
 import com.bh.service.BaseUserService;
-import com.bh.service.FileManageService;
 import com.bh.service.SysDictionaryService;
-import com.bh.service.SysFileService;
 import com.bh.service.UserAccountInfoService;
-import com.bh.util.StringUtils;
 import com.shuyin.framework.controller.HttpTemplate;
 import com.shuyin.framework.controller.OperateTemplate;
-import com.shuyin.framework.exception.BHException;
-import com.shuyin.framework.exception.BHExceptionType;
 @Controller
 @RequestMapping("Account")
 public class AccountManageController {
