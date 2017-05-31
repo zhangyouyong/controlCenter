@@ -74,11 +74,11 @@
 
 	
 	<!-- 文件上传配置 -->
-<!-- 	<bean id="multipartResolver"
+	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		设置上传文件大小的参数
+		<!-- 		设置上传文件大小的参数 -->		
 		<property name="maxUploadSize" value="50000000" /> 
 		<property name="maxInMemorySize" value="4096" />  
-	</bean> -->
+	</bean>
 	
 </beans> 

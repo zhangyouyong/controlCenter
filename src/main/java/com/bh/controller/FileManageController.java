@@ -48,6 +48,7 @@ public class FileManageController {
 		OperateTemplate template=new HttpTemplate() {
 			@Override
 			protected void doSomething() throws Exception {
+				//System.out.println(request.getContentType());
 				Map<String,Object> result=new HashMap<String,Object>();
 				// 转型为MultipartHttpRequest：
 			    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
