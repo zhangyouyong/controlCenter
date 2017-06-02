@@ -32,6 +32,7 @@
 		WHERE
 			pu.user_parent = us.user_id
 		AND bm.menuid = us.menu_id
+		and bm.delete_flag=0
 		AND NOT EXISTS (
 			SELECT
 				1
@@ -47,6 +48,6 @@
 		select menuid as menuId,bm.`name` from user_strategy us,base_menu bm where bm.menuid=us.menu_id and us.user_id=#{userId}
 	</select>
 	<insert id="userStrategyPack" parameterType="Long">
-		insert into user_strategy(user_id,menu_id,created_time)   select  #{userId},menuid,now() from base_menu bm where bm.menuid  != 7
+		insert into user_strategy(user_id,menu_id,created_time)   select  #{userId},menuid,now() from base_menu bm where bm.menuid  not in (7,8) 
 	</insert>
 </mapper>

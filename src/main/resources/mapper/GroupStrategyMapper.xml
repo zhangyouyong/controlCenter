@@ -25,6 +25,7 @@
 			where 
 				pu.cread_by =us.user_id
 			and bm.menuid=us.menu_id
+			and delete_flag=0
 			and 
 				NOT EXISTS (
 					SELECT
