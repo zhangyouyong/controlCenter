@@ -2,6 +2,8 @@ package com.bh.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -58,7 +60,7 @@ public class LoginController {
 	}
 	@RequestMapping("login")
 	@ResponseBody
-	public Map<String,Object> login(final @RequestParam(value="name")String name,final @RequestParam(value="pwd") String pwd, ModelAndView model){
+	public Map<String,Object> login(final @RequestParam(value="name")String name,final @RequestParam(value="pwd") String pwd,final HttpServletRequest request){
 		OperateTemplate template=new HttpTemplate() {
 			
 			@Override
@@ -66,7 +68,9 @@ public class LoginController {
 				map.put("data",userService.login(name, pwd));
 			}
 		};
-		return template.operate();
+		Map<String,Object> result=template.operate();
+		request.setAttribute("loginResult",result);
+		return result;
 	}
 	@RequestMapping("resetPassword")
 	@ResponseBody

@@ -146,7 +146,7 @@ public class HttpUtil {
             browser=(userAgent.substring(userAgent.indexOf("Chrome")).split(" ")[0]).replace("/", "-");  
         } else if ((user.indexOf("mozilla/7.0") > -1) || (user.indexOf("netscape6") != -1)  ||  
                 (user.indexOf("mozilla/4.7") != -1) || (user.indexOf("mozilla/4.78") != -1) ||  
-                (user.indexOf("mozilla/4.08") != -1) || (user.indexOf("mozilla/3") != -1) )  
+                (user.indexOf("mozilla/4.08") != -1) || (user.indexOf("mozilla/3") != -1) || (user.indexOf("mozilla/5") != -1) ) 
         {  
             browser = "Netscape-?";  
   
@@ -159,7 +159,7 @@ public class HttpUtil {
             browser="IE" + IEVersion.substring(0,IEVersion.length() - 1);  
         } else  
         {  
-            browser = "UnKnown, More-Info: "+userAgent;  
+            browser = "UnKnown";  
         }  
   
         return  browser ;  
