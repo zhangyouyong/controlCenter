@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bh.service.BaseUserService;
 import com.bh.util.MessageUtil;
@@ -57,7 +58,7 @@ public class LoginController {
 	}
 	@RequestMapping("login")
 	@ResponseBody
-	public Map<String,Object> login(final @RequestParam(value="name")String name,final @RequestParam(value="pwd") String pwd){
+	public Map<String,Object> login(final @RequestParam(value="name")String name,final @RequestParam(value="pwd") String pwd, ModelAndView model){
 		OperateTemplate template=new HttpTemplate() {
 			
 			@Override

@@ -39,7 +39,13 @@
 				<mvc:exclude-mapping path="/file/homeLogoInfo.do"/>
 				<bean class="com.bh.interceptor.TokenInterceptor"/>
 		</mvc:interceptor>
-	</mvc:interceptors>  
+	</mvc:interceptors>
+	 <mvc:interceptors>
+		<mvc:interceptor>
+				<mvc:mapping path="/login/login.do"/>
+				<bean class="com.bh.interceptor.LoginLoggerInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>    
 	<!-- 处理方法级别上的@RequestMapping注解 -->
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="cacheSeconds" value="0" />
