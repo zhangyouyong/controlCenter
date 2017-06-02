@@ -1,8 +1,13 @@
 package com.bh.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -205,6 +210,10 @@ public class AccountManageController {
 			}
 		};
 		return template.operate();
+	}
+	@RequestMapping("redirect")
+	public String redircet(final HttpServletResponse response) throws IOException{
+		return "redirect:http://test.cvssp.cn";
 	}
 	
 }

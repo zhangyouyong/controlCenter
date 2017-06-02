@@ -7,7 +7,14 @@ public class BaseUserModel {
 	private String tokenCode;
 	private String passWord;
 	private Long parentId;
+	private int type;
 	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
 	public Long getParentId() {
 		return parentId;
 	}

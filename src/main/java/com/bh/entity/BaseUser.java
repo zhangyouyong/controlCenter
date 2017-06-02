@@ -55,7 +55,7 @@ public class BaseUser extends AbstractEntity implements Cloneable{
 	protected java.lang.Double creditLimit;//默认值
 	/** type INT */
 	@Entity(columnName = "type")
-	protected java.lang.Integer type;//
+	protected java.lang.Integer type;//1母用户，2子用户,3系统用户
 	/** age INT */
 	@Entity(columnName = "age")
 	protected java.lang.Integer age;//年龄

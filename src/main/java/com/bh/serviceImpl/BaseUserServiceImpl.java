@@ -102,6 +102,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 		BaseUserModel baserUser = baseUserDao.login(propertys);
 		result.put("userId", baserUser.getUserId());
 		result.put("parentId", baserUser.getParentId());
+		result.put("type", baserUser.getType());
 		result.put("tokenCode", loginToken(baserUser));
 		return result;
 	}

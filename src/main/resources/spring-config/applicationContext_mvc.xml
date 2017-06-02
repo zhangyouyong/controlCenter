@@ -28,8 +28,8 @@
 	        </list>    
 	    </property>    
 	</bean>  -->
-	<mvc:interceptors>
-		<!-- <bean class="com.bh.interceptor.TokenInterceptor"/> -->
+<!-- 	<mvc:interceptors>
+		<bean class="com.bh.interceptor.TokenInterceptor"/>
 		<mvc:interceptor>
 				<mvc:mapping path="/*"/>
 				<mvc:mapping path="/*/*"/>
@@ -39,7 +39,7 @@
 				<mvc:exclude-mapping path="/file/homeLogoInfo.do"/>
 				<bean class="com.bh.interceptor.TokenInterceptor"/>
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 	<!-- 处理方法级别上的@RequestMapping注解 -->
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="cacheSeconds" value="0" />
@@ -68,10 +68,10 @@
 	<mvc:resources location="/WEB-INF/image/" mapping="/image/**"/>
 	<!-- <mvc:resources location="/resource/" mapping="/resource/**"  /> -->
 		<!-- ③：对模型视图名称的解析，即在模型视图名称添加前后缀  -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<!-- 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
-		<property name="suffix" value=".jsp"></property><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  --> 
-	</bean>
+		<property name="suffix" value=".jsp"></property>可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  
+	</bean> -->
 
 	
 	<!-- 文件上传配置 -->

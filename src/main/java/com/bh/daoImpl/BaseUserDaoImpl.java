@@ -31,7 +31,9 @@ public class BaseUserDaoImpl extends BaseDao<BaseUser> implements BaseUserDao{
 		baseUser.setPassword(pwd);//用户密码
 		baseUser.setPhone(name);//用户手机号码
 		baseUser.setUserSource(1);//用户来源 1终端用户 2平台用户 3合作方用户
+		baseUser.setUserSource(1);//用户来源 1终端用户 2平台用户 3合作方用户
 		baseUser.setUserParent(0l);
+		baseUser.setType(2);
 		baseUser.setPassword(MD5.MD5Encode(pwd));
 		baseUser.setCreateDate(new Date());
 		baseUser.setUpdateDate((new Date()));

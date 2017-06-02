@@ -3,7 +3,7 @@
 
 <mapper namespace="User">
 	<select id="userLogin" parameterType="java.util.Map"  resultType="com.bh.model.BaseUserModel">
-		select bu.userid userId,bu.login_name loginName,bu.status,user_parent parentId  from base_user bu where bu.login_name=#{loginName} and bu.password=#{password}
+		select bu.userid userId,bu.login_name loginName,bu.status,user_parent parentId,bu.type  from base_user bu where bu.login_name=#{loginName} and bu.password=#{password}
 	</select>
 	<select id="checkUserName" parameterType="java.lang.String"  resultType="java.lang.Integer">
 		select count(1)  from base_user bu where bu.login_name=#{_name}

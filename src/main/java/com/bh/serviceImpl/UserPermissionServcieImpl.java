@@ -32,6 +32,7 @@ public class UserPermissionServcieImpl implements UserPermissionServcie {
 		user.setStatus(1);
 		user.setPassword(newPwd);
 		user.setUserSource(1);
+		user.setType(2);
 		user.setCreateDate(new Date());
 		user.setUpdateDate(new Date());
 		return baseUserDao.insertBaseUser(user);
